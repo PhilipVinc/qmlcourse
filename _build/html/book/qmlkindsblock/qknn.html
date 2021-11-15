@@ -702,19 +702,23 @@
       \mathcal{F}|j\rangle|0\rangle = |j\rangle|F_j\rangle
     \]</div>
 <p>для <span class="math notranslate nohighlight">\(j \in \{0, ..., M-1\}\)</span>. <span class="math notranslate nohighlight">\(|F_j\rangle\)</span> – это одно из базисных состояний вычислительного базиса (выражающее двоичное представление числа <span class="math notranslate nohighlight">\(F_j\)</span>).</p>
-<p>1.1.  Выполняется преобразование: <span class="math notranslate nohighlight">\(\xi^{amp}|j\rangle|0\rangle = |j\rangle|\psi_j\rangle\)</span>. В амплитуду состояния <span class="math notranslate nohighlight">\(|\psi_j\rangle\)</span> закодирована информация о числе <span class="math notranslate nohighlight">\(F_j\)</span>. Делается это с помощью Swap test.</p>
+<ul>
+<li><p>Выполняется преобразование: <span class="math notranslate nohighlight">\(\xi^{amp}|j\rangle|0\rangle = |j\rangle|\psi_j\rangle\)</span>. В амплитуду состояния <span class="math notranslate nohighlight">\(|\psi_j\rangle\)</span> закодирована информация о числе <span class="math notranslate nohighlight">\(F_j\)</span> Делается это с помощью Swap test.</p>
 <p>Swap test это применение контролируемой операции <span class="math notranslate nohighlight">\(Swap\)</span>, которым можно пользоваться для того, чтобы статистически определять fidelity: <span class="math notranslate nohighlight">\(F(\psi, \phi) = |\langle \psi | \phi\rangle|^2\)</span> между двумя произвольными чистыми состояниями <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> и <span class="math notranslate nohighlight">\(|\phi\rangle\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-      CSWAP(|0\rangle|\psi\rangle|\phi\rangle) = |0\rangle|\psi\rangle|\phi\rangle\\
-      CSWAP(|1\rangle|\psi\rangle|\phi\rangle) = |1\rangle|\psi\rangle|\phi\rangle
-    \end{split}\]</div>
+        CSWAP(|0\rangle|\psi\rangle|\phi\rangle) = |0\rangle|\psi\rangle|\phi\rangle\\
+        CSWAP(|1\rangle|\psi\rangle|\phi\rangle) = |1\rangle|\psi\rangle|\phi\rangle
+      \end{split}\]</div>
 <div class="figure align-default" id="qknn-swap-test">
 <a class="reference internal image-reference" href="../../_images/swap_test.png"><img alt="../../_images/swap_test.png" src="../../_images/swap_test.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Fig. 99 </span><span class="caption-text">Схема Swap test</span><a class="headerlink" href="#qknn-swap-test" title="Permalink to this image">¶</a></p>
 </div>
-<p>1.2.  Выполняется преобразование <span class="math notranslate nohighlight">\(\xi^{dig}|j\rangle|\psi_j\rangle = |j\rangle|F_j\rangle\)</span></p>
+</li>
+<li><p>Выполняется преобразование <span class="math notranslate nohighlight">\(\xi^{dig}|j\rangle|\psi_j\rangle = |j\rangle|F_j\rangle\)</span></p>
 <p>И тогда <span class="math notranslate nohighlight">\(\mathcal{F} = \xi^{dig}\xi^{amp}\)</span>.</p>
+</li>
+</ul>
 </li>
 <li><p>Берём 2 пары регистров <span class="math notranslate nohighlight">\(i_1, f_1; i_2, f_2\)</span>. Инициализируются они в форме <span class="math notranslate nohighlight">\(|j\rangle_{i_1}|0\rangle_{f_1}|y\rangle_{i_2}|0\rangle_{f_2}\)</span></p>
 <p>Применяется <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> на каждой паре:</p>
