@@ -1075,7 +1075,7 @@ Naive grad: 0.009	Autograd result: 0.004
 </div>
 <div class="section" id="parameter-shift-rule">
 <h3>Parameter-shift rule<a class="headerlink" href="#parameter-shift-rule" title="Permalink to this headline">¶</a></h3>
-<p>Более точная оценка может быть получена методом, который называется <strong>Parameter shift</strong>. Он основан на том, что для квантового “черного ящика” <span class="math notranslate nohighlight">\(\hat{U}(\theta)\)</span>, которым является наша схема, частная производная по параметру <span class="math notranslate nohighlight">\(\theta_i\)</span> выражается так:</p>
+<p>Более точная оценка может быть получена методом, который называется <strong>Parameter-shift</strong>. Он основан на том, что для квантового “черного ящика” <span class="math notranslate nohighlight">\(\hat{U}(\theta)\)</span>, которым является наша схема, частная производная по параметру <span class="math notranslate nohighlight">\(\theta_i\)</span> выражается так:</p>
 <div class="math notranslate nohighlight">
 \[
 \nabla_{\theta_i}\langle \hat{U} \rangle (\mathbf{\theta}) = \frac{1}{2}[\langle \hat{U} \rangle (\mathbf{\theta} + \frac{\pi}{2}\mathbf{e_i}) - \langle \hat{U} \rangle (\mathbf{\theta} - \frac{\pi}{2}\mathbf{e_i})]
