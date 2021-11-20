@@ -42,6 +42,8 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -709,11 +711,11 @@
 <h2>Квантовая свертка<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Активное развитие квантовых вычислений создает запрос на построение квантового аналога светки. Работа <a class="reference external" href="https://arxiv.org/abs/1904.04767">(Henderson M. et.al., 2019)</a>, описывающая подобный подход, предлагает следующую схему реализации на основе вариационных квантовых схем:</p>
 <ul class="simple">
-<li><p>Изображение разбивается на блоки размера 2х2</p></li>
-<li><p>Для каждого блока осуществляется кодирование входного сигнала к квантовому состоянию, которое в данной лекции осуществляется параметризованным вращением кубита из основного состояния</p></li>
-<li><p>Квантовые вычисления выполняются над входными кубитами посредством случайной квантовой цепи</p></li>
-<li><p>Далее проводится измерение квантовой системы для получения классических величин</p></li>
-<li><p>Выполняя данную процедуру для всех 2х2 областей на выходе получается многоканальное изображение (трехканальное на примере ниже), которое будет использоваться в следующих слоях классической или квантовой нейронной сети</p></li>
+<li><p>изображение разбивается на блоки размера 2х2;</p></li>
+<li><p>для каждого блока осуществляется кодирование входного сигнала к квантовому состоянию, которое в данной лекции осуществляется параметризованным вращением кубита из основного состояния;</p></li>
+<li><p>квантовые вычисления выполняются над входными кубитами посредством случайной квантовой цепи;</p></li>
+<li><p>проводится измерение квантовой системы для получения классических величин;</p></li>
+<li><p>выполняя данную процедуру для всех 2х2 областей на выходе получается многоканальное изображение (трехканальное на примере ниже), которое будет использоваться в следующих слоях классической или квантовой нейронной сети.</p></li>
 </ul>
 <p><img alt="Квантовая свертка" src="../../_images/qconv_net.png" /></p>
 <p>Основное отличие по отношению к классической свертке состоит в том, что квантовая схема может генерировать очень сложные ядра, вычисления которых могут быть классически невоспроизводимыми. Указанные сложные ядра, а именно ядра в высокоразмерном пространстве Гильберта, могут дать преимущества квантовым сверткам по отношению к классическим.</p>
@@ -784,7 +786,7 @@
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 3932160/11490434 [=========&gt;....................] - ETA: 0s
+ 8806400/11490434 [=====================&gt;........] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -804,13 +806,14 @@
 <h2>Реализация квантовой свертки<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>Далее создаем устройство, симулирующее работу 3 кубитов. Оно состоит из трех частей:</p>
 <ul class="simple">
-<li><p>кодировщик, преобразующий входные данные в квантовые состояния с помощью Ry поворотов,</p></li>
-<li><p>случайная квантовая цепь,</p></li>
-<li><p>измерения, дающие 3 выходных значения</p></li>
+<li><p>кодировщик, преобразующий входные данные в квантовые состояния с помощью <span class="math notranslate nohighlight">\(RY\)</span> поворотов;</p></li>
+<li><p>случайная квантовая цепь;</p></li>
+<li><p>измерения, дающие 3 выходных значения.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">n_wires</span><span class="p">)</span>
+
 <span class="c1"># Генерация значений параметров для квантовых слоев</span>
 <span class="n">rand_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">high</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_wires</span><span class="p">))</span>
 
@@ -831,8 +834,8 @@
 </div>
 <p>Следующая функция <code class="docutils literal notranslate"><span class="pre">quanv</span></code> определяет квантовую свертку по следующей схеме:</p>
 <ul class="simple">
-<li><p>разделение изображения на блоки 2х2 пикселей,</p></li>
-<li><p>обработку каждого блока квантовой цепью <code class="docutils literal notranslate"><span class="pre">circuit</span></code>, описанной выше,</p></li>
+<li><p>разделение изображения на блоки 2х2 пикселей;</p></li>
+<li><p>обработку каждого блока квантовой цепью <code class="docutils literal notranslate"><span class="pre">circuit</span></code>, описанной выше;</p></li>
 <li><p>3 выходных значения для каждого блока помещаются в 3 разных канала одного пикселя выходного изображения.</p></li>
 </ul>
 <p>Описанный выше процесс уменьшает разрешение входного изображения в 2 раза, что эквивалентно классической свертки с ядром 2х2 и шагом 2</p>
@@ -840,6 +843,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quanv</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Функция квантовой свертки над входным изображением.&quot;&quot;&quot;</span>
+    
     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="n">n_wires</span><span class="p">))</span>
 
     <span class="c1"># Циклы по координатам верхнего левого пикселя блоков 2х2</span>
@@ -897,15 +901,16 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">n_channels</span> <span class="o">=</span> <span class="n">n_wires</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
     <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">train_images</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Plot all output channels</span>
+    <span class="c1"># Отрисовка</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_channels</span><span class="p">):</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output [ch. </span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output [ch. </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">axes</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">q_train_images</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
@@ -928,8 +933,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">MyModel</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Initializes and returns a custom Keras model</span>
-<span class="sd">    which is ready to be trained.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Функция инициализирует и возвращает keras модель, готовая к обучению&quot;&quot;&quot;</span>
+
     <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
         <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
         <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
@@ -1018,17 +1023,17 @@
 <div class="section" id="id12">
 <h2>Замечания<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>В статье авторов подхода <a class="reference external" href="https://arxiv.org/abs/1904.04767">(Henderson M. et.al., 2019)</a> для гибридной и чисто классической сети с большим количеством слоев (см. схему сети) и большим объемом данных достигнута ожидаемая высокая точность выше 95%.</p></li>
-<li><p>Блоки квантовой свертки сейчас особо интересны, так как они ориентированы на использование малого количества кубитов, которое доступно в текущий период времени устройств с промежуточным количеством кубитов NISQ (noisy intermediate-scale quantum algorithms)</p></li>
+<li><p>в статье авторов подхода <a class="reference external" href="https://arxiv.org/abs/1904.04767">(Henderson M. et.al., 2019)</a> для гибридной и чисто классической сети с большим количеством слоев (см. схему сети) и большим объемом данных, достигнута ожидаемая высокая точность выше 95%;</p></li>
+<li><p>блоки квантовой свертки сейчас особо интересны, так как они ориентированы на использование малого количества кубитов, которое доступно в текущий период времени устройств с промежуточным количеством кубитов NISQ.</p></li>
 </ul>
 </div>
 <div class="section" id="id13">
 <h2>Что мы узнали из лекции<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Существует аналог сверточных нейронных сетей для квантовых вычислений</p></li>
-<li><p>Аналог квантовой свертки может быть реализован с использованием случайной квантовой цепи</p></li>
-<li><p>Использование квантовой свертки позволяет достичь результатов схожих с классическими сетями</p></li>
-<li><p>Основное преимущество квантовой свертки по отношению к классической в том, что первая является более широкой операцией, которая не может быть описана классическим случаем.</p></li>
+<li><p>существует аналог сверточных нейронных сетей для квантовых вычислений;</p></li>
+<li><p>аналог квантовой свертки может быть реализован с использованием случайной квантовой цепи;</p></li>
+<li><p>использование квантовой свертки позволяет достичь результатов схожих с классическими сетями;</p></li>
+<li><p>основное преимущество квантовой свертки по отношению к классической в том, что первая является более широкой операцией, которая не может быть описана классическим случаем.</p></li>
 </ul>
 </div>
 </div>
