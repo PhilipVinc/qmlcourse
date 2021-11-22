@@ -919,7 +919,7 @@ M_0 = \ket{0, ..., 0}\bra{0, ..., 0}.
 <p>Мы не будем сами с нуля писать решение задачи квадратичного программирования, просто воспользуемся готовой рутиной из <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>. Используемая там реализация позволяет вместо ядерной функции передать сразу матрицу Грама (<a class="reference external" href="https://en.wikipedia.org/wiki/Gram_matrix">Gram matrix</a>). На самом деле это просто матрица всех попарных скалярных произведений наших векторов. Вычислим ее, сразу воспользовавшись тем, что</p>
 <div class="math notranslate nohighlight">
 \[
-\braket{U(x)|U(x)} = 1$ и $\braket{U(x_1)|U(x_2)} = \braket{U(x_2)|U(x_1)}
+\braket{U(x)|U(x)} = 1 \quad \text{и} \quad \braket{U(x_1)|U(x_2)} = \braket{U(x_2)|U(x_1)}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
