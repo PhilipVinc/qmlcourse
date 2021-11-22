@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# (qknn)=
-# 
 # # Quantum K-nearest neighbor
 # 
 # ## Введение

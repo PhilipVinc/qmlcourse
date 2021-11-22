@@ -666,12 +666,12 @@
      Пример: оператор поворота
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Пример: оператор дифференцирования
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
-   Пример: оператор дифференцирования
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
@@ -907,9 +907,8 @@ M = \begin{bmatrix}
 <p>Если у нас больше измерений, то по тем измерениям, которые не затрагиваются этим поворотом, у нас в строке и столбце стоят нули, кроме пересечения строки и столбца, отвечающих за это измерение - там стоит единица.</p>
 <p>Операторы поворота очень важны в квантовых вычислениях. Они рассматриваются отдельно в <a class="reference internal" href="../qcblock/gates.html#gates"><span class="std std-ref">лекции про квантовые гейты</span></a> и далее используются в <a class="reference internal" href="../vqcblock/vqc.html#vqc"><span class="std std-ref">вариационных квантовых схемах</span></a> для кодирования классических данных в квантовые операторы.</p>
 </div>
-</div>
 <div class="section" id="id9">
-<h2>Пример: оператор дифференцирования<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h3>Пример: оператор дифференцирования<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>В пространстве многочленов <span class="math notranslate nohighlight">\(P\)</span> с базисом <span class="math notranslate nohighlight">\(\{1,t,t^2,...,t^n\}\)</span> можно задать оператор дифференцирования <span class="math notranslate nohighlight">\(\mathcal{D} \colon P_n \to P_{n-1}\)</span> в виде матрицы:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -929,6 +928,7 @@ D=\begin{bmatrix}
 <div class="admonition- admonition">
 <p class="admonition-title">Про разницу между оператором и матрицей преобразования</p>
 <p>Мы с вами рассматривали операторы через конечные матрицы, но на самом деле гильбертово пространство было придумано как раз, чтобы можно было работать с бесконечномерными векторами и применять непрерывные операторы. Можно считать, что есть некоторый дуализм между непрерывным оператором и пределом бесконечной матрицы. Иногда удобнее работать с матрицей, а иногда – с абстрактным оператором.</p>
+</div>
 </div>
 </div>
 <div class="section" id="id10">
