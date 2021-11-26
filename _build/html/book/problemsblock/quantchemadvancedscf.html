@@ -815,15 +815,16 @@
 \]</div>
 <p>Опустим несколько страниц выкладок <span id="id9">[<a class="reference internal" href="../bibliography.html#id14"><span>15a</span></a>]</span>, учтем граничные условия и получим следующее решение:</p>
 <div class="math notranslate nohighlight">
-\[
-R_{n\ell}(r) = r^\ell \cdot e^{-r/n} \cdot \sum_{k=0}^{n -\ell -1} \frac{(-2r/n)^k}{ (2\ell + 2 +k)! (n-\ell-k-1)! k!} \cdot C
-\]</div>
+\[\begin{split}
+R_{n\ell}(r) = r^\ell \cdot e^{-r/n} \cdot \sum_{k=0}^{n -\ell -1} \frac{(-2r/n)^k}{ (2\ell + 2 +k)! (n-\ell-k-1)! k!} \cdot C \\
+\ket{\Psi(r, \theta, \phi)} = R_{n\ell}(r) Y_{\ell m} (\theta, \phi),
+\end{split}\]</div>
+<p>где <span class="math notranslate nohighlight">\(Y_{\ell m}(\theta, \phi)\)</span> – <a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_harmonics">сферические функции</a>.</p>
+<p>Если подставить это решение в уравнение Шредингера и найти энергию, то получим:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}
-\ket{\Psi(r, \theta, \phi)} = R_{n\ell}(r) Y_{\ell m} (\theta, \phi)
-$$,\\где $Y_{\ell m}(\theta, \phi)$ -- [сферические функции](https://en.wikipedia.org/wiki/Spherical_harmonics).\\Если подставить это решение в уравнение Шредингера и найти энергию, то получим:\end{aligned}\end{align} \]</div>
-<p>E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
-$$</p>
+\[
+E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
+\]</div>
 <p>То есть получим ту же формулу, что и в теории Бора, и тот же численный результат – 13.6 eV.</p>
 <p>Здесь начинает проступать основная проблема квантовой химии – математическая и вычислительная сложность. Пока что проблема только концептуальная (сложно разобраться в формулах и уравнениях), но при росте числа частиц в системе даже отличное владение матаппаратом окажется недостаточным.</p>
 </div>
