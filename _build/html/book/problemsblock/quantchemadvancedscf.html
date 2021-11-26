@@ -830,11 +830,11 @@ E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
 </div>
 <div class="section" id="id10">
 <h3>От теории к практике<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<p>Вернемся из начала двадцатого века обратно в день сегодняшний. Сто лет назад набирающийся аналитически интегралы и замороченные дифференциальные уравнения были почти непреодолимыми препятствиями, поэтому поначалу теория квантовой химии развивалась в сторону более хитрых приближений и упрощений, позволяющих решить эти уравнения аналитически.</p>
+<p>Вернемся из начала двадцатого века обратно в день сегодняшний. Сто лет назад набирающиеся аналитически интегралы и замороченные дифференциальные уравнения были почти непреодолимыми препятствиями, поэтому поначалу теория квантовой химии развивалась в сторону более хитрых приближений и упрощений, позволяющих решить эти уравнения аналитически.</p>
 <p>Сегодня реальные научные задачи решаются численно – и для этого написано множество высокопроизводительных пакетов, позволяющих на основе входных данных и ограничений вычислить определенным методом желаемые характеристики.</p>
 <p>Как и в задачах машинного обучения, в первом приближении достаточно подготовить данные, скормить их волшебному комбайну-вычислителю и забрать ответ, но без понимания о происходящем под капотом есть шансы получить что-то неправильное.</p>
-<p>В этой лекции мы воспользуемся Python-пакетом <a class="reference external" href="https://psicode.org/posts/psi4education_setup/">psi4</a>. Он реализует многие алгоритмы квантовой химии и имеет неплохое Python API.</p>
-<p>Давайте посчитаем c помощью psi4 энергию основного состояния атома водорода. Некоторые параметры сейчас придется использовать, “поверив на слово”. Их смысл будет объяснен в дальнейшем.</p>
+<p>В этой лекции мы воспользуемся Python-пакетом <a class="reference external" href="https://psicode.org/posts/psi4education_setup/"><code class="docutils literal notranslate"><span class="pre">psi4</span></code></a>. Он реализует многие алгоритмы квантовой химии и имеет неплохое Python API.</p>
+<p>Давайте посчитаем c помощью <code class="docutils literal notranslate"><span class="pre">psi4</span></code> энергию основного состояния атома водорода. Некоторые параметры сейчас придется использовать, “поверив на слово”. Их смысл будет объяснен в дальнейшем.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psi4</span>
@@ -865,14 +865,15 @@ E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
 <span class="k">def</span> <span class="nf">e_in_ev</span><span class="p">(</span><span class="n">energy_in_ht</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">energy_in_ht</span> <span class="o">*</span> <span class="n">h2ev</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="n">e_in_ht</span> <span class="o">=</span> <span class="n">psi4</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="s1">&#39;scf&#39;</span><span class="p">)</span> <span class="c1"># энергия в единицах Hartree</span>
+<span class="c1"># энергия в единицах Hartree</span>
+<span class="n">e_in_ht</span> <span class="o">=</span> <span class="n">psi4</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="s1">&#39;scf&#39;</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hydrogen ground state energy: </span><span class="si">{</span><span class="n">e_in_ev</span><span class="p">(</span><span class="n">e_in_ht</span><span class="p">)</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Здесь мы посчитали энергию в единицах Хартри – специальной физической системе единиц, где истинная энергия атома водорода равна 1/2, и перевели ее в электрон-вольты.</p>
-<p>Результат не очень точный (правильный, как мы помним, равен 13.6 eV) и мы его улучшим после того как разберемся с тем, что и как мы только что посчитали. Разобраться будет удобнее на примере атома гелия, потому что в атоме водорода есть только один электрон, а в любой реальной системе – больше одного.</p>
+<p>Здесь мы посчитали энергию в единицах Хартри – специальной физической системе единиц, где истинная энергия атома водорода равна 1/2, и перевели ее в электрон-вольты. Результат не очень точный (правильный, как помним, равен 13.6 eV) и мы его улучшим после того как разберемся с тем, что и как мы только что посчитали. Это будет удобнее сделать на примере атома гелия, потому что в атоме водорода есть только один электрон, а в любой реальной системе – больше одного.</p>
 </div>
 </div>
 <div class="section" id="id11">
@@ -1049,13 +1050,14 @@ E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
 <span class="p">})</span>
 
 <span class="n">e_in_ht_h</span> <span class="o">=</span> <span class="n">psi4</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="s1">&#39;scf&#39;</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="n">h_mol</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hydrogen ground state energy: </span><span class="si">{</span><span class="n">e_in_ev</span><span class="p">(</span><span class="n">e_in_ht_h</span><span class="p">)</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Здесь мы задали явно координаты обоих атомов водорода в молекуле и энергия электронов была высчитана в предположении, что ядра водородов неподвижны. Здесь расстояние в 0.74 Ангстрема взято из <a class="reference external" href="https://cccbdb.nist.gov/exp2x.asp?casno=1333740&amp;charge=0">экспериментальных данных</a>. Если бы мы зададим неправильные координаты, то рассчитанная энергия окажется неверной. Точнее, она соответствовала бы нефизичной ситуации, когда неведомая сила “удерживает” ядра водорода на месте.</p>
-<p>В psi4 есть метод для оптимизации геометрии молекулы <code class="docutils literal notranslate"><span class="pre">psi4.optimize</span></code>. Он не фиксирует положение ядер и возвращает минимальную возможную энергию с учетом вариации положения атомов.</p>
+<p>В <code class="docutils literal notranslate"><span class="pre">psi4</span></code> есть метод для оптимизации геометрии молекулы <code class="docutils literal notranslate"><span class="pre">psi4.optimize</span></code>. Он не фиксирует положение ядер и возвращает минимальную возможную энергию с учетом вариации положения атомов.</p>
 <p>Вычисления с оптимизацией геометрии занимают значительно больше времени.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1089,7 +1091,7 @@ E_{n} = -\frac{1}{n^2} \frac{me^4}{2\hbar^2}
 <div class="section" id="id17">
 <h3>Молекула этилового спирта<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>Молекула водорода – это все еще почти игрушечный пример. Давайте попробуем обсчитать молекулу этанола.</p>
-<p>Задавать руками геометрию молекулы <span class="math notranslate nohighlight">\(C_2H_5OH\)</span> можно, но будет явно сложнее, чем для молекулы водорода. К счастью, это необязательно: psi4 умеет скачивать геометрию из базы данных <a class="reference external" href="https://pubchem.ncbi.nlm.nih.gov/">PubChem</a> по номенклатурному имени либо уникальному ChemId.</p>
+<p>Задавать руками геометрию молекулы <span class="math notranslate nohighlight">\(C_2H_5OH\)</span> можно, но будет явно сложнее, чем для молекулы водорода. К счастью, это необязательно: <code class="docutils literal notranslate"><span class="pre">psi4</span></code> умеет скачивать геометрию из базы данных <a class="reference external" href="https://pubchem.ncbi.nlm.nih.gov/">PubChem</a> по номенклатурному имени либо уникальному ChemId.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psi4</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>

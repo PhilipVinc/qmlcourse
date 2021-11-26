@@ -14,7 +14,9 @@ h2ev = physical_constants['hartree-electron volt relationship']
 def e_in_ev(energy_in_ht):
     return energy_in_ht * h2ev[0]
 
-e_in_ht = psi4.energy('scf') # энергия в единицах Hartree
+# энергия в единицах Hartree
+e_in_ht = psi4.energy('scf')
+
 print(f"Hydrogen ground state energy: {e_in_ev(e_in_ht)} eV")
 
 e_in_ht = psi4.energy('scf')
@@ -62,6 +64,7 @@ psi4.set_options({
 })
 
 e_in_ht_h = psi4.energy('scf', molecule=h_mol)
+
 print(f"Hydrogen ground state energy: {e_in_ev(e_in_ht_h)} eV")
 
 psi4.core.clean()
