@@ -17,6 +17,13 @@ def e_in_ev(energy_in_ht):
 e_in_ht = psi4.energy('scf') # энергия в единицах Hartree
 print(f"Hydrogen ground state energy: {e_in_ev(e_in_ht)} eV")
 
+e_in_ht = psi4.energy('scf')
+
+psi4.set_options({
+  'basis': 'STO-3G',
+  'reference': 'rohf',
+})
+
 psi4.core.clean()
 
 h_atom = psi4.geometry("H")
@@ -64,7 +71,6 @@ H 0 0 0
 H 0 0 1.5
 """) # неверное расстояние в ангстремах
 
-
 psi4.set_options({
   'basis': 'STO-3G',
   'reference': 'rohf',
@@ -79,7 +85,6 @@ e_in_ht_h_optimized = psi4.optimize('scf', molecule=h_mol_bad)
 print(f"Hydrogen molecule, incorrect ground state energy: {e_in_ev(e_in_ht_h_bad)} eV")
 print(f"Hydrogen molecule, optimized ground state energy: {e_in_ev(e_in_ht_h_optimized)} eV")
 
-
 psi4.core.clean()
 
 eth = psi4.geometry("pubchem:ethanol")
@@ -92,4 +97,3 @@ psi4.set_options({
 e_in_ht_eth = psi4.energy('scf', molecule=eth)
 
 print(f"Ethanol ground state energy: {e_in_ev(e_in_ht_eth)} eV")
-
