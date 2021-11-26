@@ -21,10 +21,12 @@ print(f"Hydrogen ground state energy: {e_in_ev(e_in_ht)} eV")
 
 e_in_ht = psi4.energy('scf')
 
-psi4.set_options({
-  'basis': 'STO-3G',
-  'reference': 'rohf',
-})
+psi4.set_options(
+  {
+    'basis': 'STO-3G',
+    'reference': 'rohf',
+  }
+)
 
 psi4.core.clean()
 
@@ -33,10 +35,11 @@ h_atom = psi4.geometry("H")
 psi4.set_options({
   'basis': 'd-aug-cc-pv5z', # разбор этого базиса выходит за рамки этого интро
   'scf_type': 'pk',
-  'reference': 'rohf'
+  'reference': 'rohf',
 })
 
 e_in_ht = psi4.energy('scf')
+
 print(f"Better hydrogen ground state energy: {e_in_ev(e_in_ht)} eV")
 
 psi4.core.clean()
@@ -49,14 +52,16 @@ psi4.set_options({
 })
 
 e_in_ht = psi4.energy('scf')
+
 print(f"Helium ground state energy: {e_in_ev(e_in_ht)} eV")
 
 psi4.core.clean()
 
+# задаем 2 атома водорода с явными координатами
 h_mol = psi4.geometry("""
 H 0 0 0
 H 0 0 0.74
-""") # задали 2 атома водорода с явными координатами
+""")
 
 psi4.set_options({
   'basis': 'STO-3G',
