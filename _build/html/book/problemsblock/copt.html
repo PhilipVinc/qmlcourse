@@ -743,7 +743,6 @@ C = \sum_{u,v,w \in E} w (\mathbf{1}(u \in V_1, v \in V_2) + \mathbf{1}(u \in V_
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">zachary</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">social</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
     <span class="n">zachary</span><span class="p">,</span>
@@ -883,12 +882,12 @@ X = \text{argmax} \{ \sum_i x_i \cdot s_i \} \\
 <p>Теперь давайте вернемся к аппроксимационным алгоритмам, которые работают относительно быстро, но, к сожалению, часто дают довольное плохие результаты. Ну и самым простым вариантом таких алгоритмов будет жадный алгоритм. Рассматривать его будем на примере задачи о рюкзаке. Пусть у нас есть рюкзак объема <span class="math notranslate nohighlight">\(30\)</span> и набор предметов с их стоимостью и объемом:</p>
 <div class="math notranslate nohighlight">
 \[
-items = \{(4, 370), (9, 1950), (10, 3400), (21, 6700), (17, 6100), (3, 800), (27, 8300)\}
+items = \{(4, 370), (9, 1950), (10, 3500), (21, 6700), (17, 6100), (3, 800), (27, 8300)\}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">items</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">370</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1950</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3400</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">6700</span><span class="p">),</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">6100</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">8300</span><span class="p">),]</span>
+<span class="n">items</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">370</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1950</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3500</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">6700</span><span class="p">),</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">6100</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">8300</span><span class="p">),]</span>
 </pre></div>
 </div>
 </div>
@@ -916,7 +915,7 @@ items = \{(4, 370), (9, 1950), (10, 3400), (21, 6700), (17, 6100), (3, 800), (27
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Items, sorted by relative cost:
 Weight: 17	Cost: 6100	Relative Cost: 358.8235294117647
-Weight: 10	Cost: 3400	Relative Cost: 340.0
+Weight: 10	Cost: 3500	Relative Cost: 350.0
 Weight: 21	Cost: 6700	Relative Cost: 319.04761904761904
 Weight: 27	Cost: 8300	Relative Cost: 307.4074074074074
 Weight: 3	Cost: 800	Relative Cost: 266.6666666666667
@@ -950,7 +949,7 @@ Weight: 4	Cost: 370	Relative Cost: 92.5
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final score: 10300
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final score: 10400
 Total weight of items: 30
 </pre></div>
 </div>
@@ -967,8 +966,6 @@ Total weight of items: 30
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">rand_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -1094,8 +1091,7 @@ P_{acceptance} = e^{\frac{E_{new} - E_{old}}{T}}
 <p>И посмотрим, как оно сходилось:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e_history</span><span class="p">)),</span> <span class="n">e_history</span><span class="p">,</span> <span class="s2">&quot;.-&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e_history</span><span class="p">)),</span> <span class="n">e_history</span><span class="p">,</span> <span class="s2">&quot;.-&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cost&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
