@@ -728,10 +728,10 @@ b = array([[0., 0.],
 c = array([[1., 0., 0.],
        [0., 1., 0.],
        [0., 0., 1.]])
-q = array([[0.35064708, 0.1221341 , 0.9730359 , 0.11779796, 0.6993172 ,
-        0.64868333, 0.15322228, 0.28524572, 0.20437489, 0.38330839,
-        0.11098454, 0.33769526, 0.26929776, 0.55379138, 0.13999579,
-        0.08886012, 0.25081757, 0.75233615, 0.49817054, 0.92670358]])
+q = array([[0.34979354, 0.32469037, 0.07987546, 0.76317591, 0.28396415,
+        0.29350859, 0.06632662, 0.15404105, 0.60851127, 0.66636035,
+        0.5680136 , 0.23226561, 0.28062998, 0.03541475, 0.26637316,
+        0.31127287, 0.6340288 , 0.57927801, 0.70243011, 0.76263531]])
 </pre></div>
 </div>
 </div>
@@ -739,7 +739,7 @@ q = array([[0.35064708, 0.1221341 , 0.9730359 , 0.11779796, 0.6993172 ,
 </div>
 <div class="section" id="id3">
 <h2>Арифметические операции<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>Для удобства использования <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> определены арифметические операторы, так чтобы соответствовать ожиданиям:</p>
+<p>Для удобства использования <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> арифметические операторы определены так, чтобы соответствовать ожиданиям:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -866,7 +866,7 @@ z[0, :, 1] = array([1, 4, 7])
 </div>
 </div>
 </div>
-<p>В целом, в <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> очень здорово реализованы методы <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>/<code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>.</p>
+<p>В целом в <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> очень здорово реализованы методы <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>/<code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -885,7 +885,7 @@ a = array([1, 2, 5])
 </div>
 </div>
 </div>
-<p>Кроме того, мы можем делать индексацию по заданному условию с помощью <code class="docutils literal notranslate"><span class="pre">np.where</span></code></p>
+<p>Кроме того, мы можем делать индексацию по заданному условию с помощью <code class="docutils literal notranslate"><span class="pre">np.where</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># создадим вектор</span>
@@ -894,7 +894,7 @@ a = array([1, 2, 5])
 <span class="n">selection</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">selection</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># дополнительно мы можем передать два значения или вектора, при выполнении условия выбираются элементы из первого значения/вектора, при невыполнении - из второго</span>
+<span class="c1"># дополнительно можем передать два значения или вектора, при выполнении условия выбираются элементы из первого значения/вектора, при невыполнении -- из второго</span>
 <span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a2</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -933,7 +933,7 @@ b_mult = array([[1, 1, 2, 1],
 </div>
 </div>
 </div>
-<p>С точки зрения математики, ничего интересного тут не происходит: мы подразумевали умножение всего вектора на скаляр. Однако матричные операции в numpy справляются и с менее очевидными случаями, например при сложении или вычитании вектора и скаляра:</p>
+<p>С точки зрения математики, ничего интересного тут не происходит: мы подразумевали умножение всего вектора на скаляр. Однако матричные операции в numpy справляются и с менее очевидными случаями, например, при сложении или вычитании вектора и скаляра:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -951,9 +951,9 @@ b_mult = array([[1, 1, 2, 1],
 </div>
 <p>В numpy приняты следующие правила работы с массивами разного размера:</p>
 <ol class="simple">
-<li><p>Размерности сравниваются справа налево</p></li>
-<li><p>Два массива совместимы в размерности, если она одинаковая, либо у одного из массивов единичная.</p></li>
-<li><p>Вдоль отсутствующих размерностей происходит расширение повторением (<code class="docutils literal notranslate"><span class="pre">np.repeat</span></code>).</p></li>
+<li><p>размерности сравниваются справа налево;</p></li>
+<li><p>два массива совместимы в размерности, если она одинаковая, либо у одного из массивов единичная;</p></li>
+<li><p>вдоль отсутствующих размерностей происходит расширение повторением (<code class="docutils literal notranslate"><span class="pre">np.repeat</span></code>).</p></li>
 </ol>
 <div class="figure align-default" id="numpy-work-with-arrays">
 <img alt="../../_images/numpy_work_with_arrays.png" src="../../_images/numpy_work_with_arrays.png" />
@@ -967,7 +967,7 @@ b_mult = array([[1, 1, 2, 1],
 <div class="section" id="id4">
 <h2>Операции с плавающей точкой<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Отдельно стоит поговорить про числа с плавающей точкой.
-Число с плавающей точкой (или число с плавающей запятой) — экспоненциальная форма представления вещественных (действительных) чисел, в которой число хранится в виде мантиссы и порядка (показателя степени). При этом число с плавающей точкой имеет фиксированную относительную точность и изменяющуюся абсолютную.
+Число с плавающей точкой (или число с плавающей запятой) – экспоненциальная форма представления вещественных (действительных) чисел, в которой число хранится в виде мантиссы и порядка (показателя степени). При этом число с плавающей точкой имеет фиксированную относительную точность и изменяющуюся абсолютную.
 В результате одно и то же значение может выглядеть по-разному, если хранить его с разной точностью.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1015,7 +1015,7 @@ np.allclose([1e10,1e-8], [1.00001e10,1e-9]) = True
 <p>В <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> много удобных функций, которые позволяют упростить код. Приведем несколько примеров:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># матрица с единицами по диагонали и с нулями в остальных ячейках.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># матрица с единицами по диагонали и с нулями в остальных ячейках</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1"># есть возможность указать индекс диагонали</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">k</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1025,13 +1025,13 @@ np.allclose([1e10,1e-8], [1.00001e10,1e-9]) = True
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># Numpy позволяет заменить значений основной диагонали матрицы.</span>
-<span class="c1"># Внимание, эта функция работает in-place</span>
+<span class="c1"># внимание, эта функция работает in-place</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># Можно сделать и наоборот - получить вектор значений диагонали матрица</span>
+<span class="c1"># Можно сделать и наоборот -- получить вектор значений диагонали матрица</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1042,15 +1042,15 @@ np.allclose([1e10,1e-8], [1.00001e10,1e-9]) = True
 np.eye(3, k=-1, dtype=int) = array([[0, 0, 0],
        [1, 0, 0],
        [0, 1, 0]])
-np.random.beta(1, 2) = 0.06744418401494583
-np.random.randint(1, 5, (2, 3)) = array([[2, 4, 2],
-       [1, 4, 4]])
-a = array([[4, 3, 1],
-       [1, 2, 3],
-       [4, 1, 2]])
-a = array([[4, 3, 1],
-       [1, 4, 3],
-       [4, 1, 4]])
+np.random.beta(1, 2) = 0.15792174610491572
+np.random.randint(1, 5, (2, 3)) = array([[4, 3, 4],
+       [4, 3, 4]])
+a = array([[1, 2, 1],
+       [2, 2, 4],
+       [2, 2, 4]])
+a = array([[4, 2, 1],
+       [2, 4, 4],
+       [2, 2, 4]])
 np.diag(a) = array([4, 4, 4])
 </pre></div>
 </div>
@@ -1116,11 +1116,11 @@ np.diag(a) = array([4, 4, 4])
 <div class="section" id="id9">
 <h2>Мы вкратце рассмотрели<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>основы работы с <code class="docutils literal notranslate"><span class="pre">NumPy</span></code></p></li>
-<li><p>индексацию в массивах</p></li>
-<li><p>broadcasting массивов <code class="docutils literal notranslate"><span class="pre">NumPy</span></code></p></li>
-<li><p>операции с плавающей точкой</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">NumPy</span></code> и примитивы линейной алгебры</p></li>
+<li><p>основы работы с <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>;</p></li>
+<li><p>индексацию в массивах;</p></li>
+<li><p>broadcasting массивов <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>;</p></li>
+<li><p>операции с плавающей точкой;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NumPy</span></code> и примитивы линейной алгебры.</p></li>
 </ul>
 </div>
 </div>
