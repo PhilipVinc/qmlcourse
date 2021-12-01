@@ -934,7 +934,14 @@ c_1
 </div>
 </div>
 </div>
-<p>Здесь мы создаем именно вектор-столбец размерности <span class="math notranslate nohighlight">\(2\times1\)</span>.</p>
+<p>Здесь мы создаем именно вектор-столбец размерности <span class="math notranslate nohighlight">\(2 \times 1\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\ket{\Psi} = \begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\end{split}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qubit</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -969,7 +976,7 @@ c_1
 <li><p>они имеют единичную норму;</p></li>
 <li><p>они образуют базис.</p></li>
 </ul>
-<p>Что это значит для нас? А то, что любое состояние <span class="math notranslate nohighlight">\(\ket{\Psi}\)</span> можно записать как линейную комбинацию векторов <span class="math notranslate nohighlight">\(\ket{0}\)</span> и <span class="math notranslate nohighlight">\(\ket{1}\)</span>, причем коэффициентами в этой комбинации будут как раз наши <span class="math notranslate nohighlight">\(c_0, c_1\)</span>:</p>
+<p>Что это значит для нас? А то, что любое состояние <span class="math notranslate nohighlight">\(\ket{\Psi}\)</span> можно записать как линейную комбинацию векторов <span class="math notranslate nohighlight">\(\ket{0}\)</span> и <span class="math notranslate nohighlight">\(\ket{1}\)</span>, причем коэффициентами в этой комбинации будут как раз <span class="math notranslate nohighlight">\(c_0, c_1\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basis_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -987,6 +994,25 @@ c_1
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\ket{\Psi} = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 \\
+0
+\end{bmatrix}
++
+\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\end{split}\]</div>
 </div>
 <div class="section" id="id10">
 <h4>Амплитуды вероятностей<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
@@ -1021,6 +1047,17 @@ True
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+= 1.0
+\end{split}\]</div>
 <p>Мы будем очень часто пользоваться транспонированием и взятием комплексно сопряженного от векторов. В квантовой механике это имеет специальное обозначение <span class="math notranslate nohighlight">\(\bra{\Psi} = {\Psi^T}^* = \Psi^\dagger\)</span> (бра – вектор-строка). Тогда наше правило нормировки из <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> кода может быть записано в нотации Дирака так:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1065,19 +1102,72 @@ True
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">basis_0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">basis_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">plus</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">minus</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">L</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
-True
-True
 </pre></div>
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+1 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+= 0
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">plus</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">minus</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+-\frac{1}{\sqrt{2}}
+\end{bmatrix}
+= 0
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">L</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; -i\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+-i\frac{1}{\sqrt{2}}
+\end{bmatrix}
+= 0
+\end{split}\]</div>
 <p>Заметьте, что в наших векторных пространствах скалярное произведение – это (в случае действительных векторов) <span class="math notranslate nohighlight">\(\vec{a}\vec{b} = \left\langle a\middle| b\right\rangle\)</span> (<a class="reference external" href="https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation">бра-кет</a>). Именно поэтому нужно делать транспонирование и комплексное сопряжение первого вектора в паре.</p>
 </div>
 </div>
@@ -1168,6 +1258,21 @@ True
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{1}{\sqrt{2}}\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; -1 \\
+\end{bmatrix}
+\frac{1}{\sqrt{2}}\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; -1 \\
+\end{bmatrix}
+= \begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1 \\
+\end{bmatrix}
+\end{split}\]</div>
 </div>
 <div class="section" id="id22">
 <h5>Проверка<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h5>
@@ -1184,6 +1289,22 @@ True
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{1}{\sqrt{2}}\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; -1 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\end{split}\]</div>
 </div>
 </div>
 </div>
@@ -1254,7 +1375,7 @@ i &amp; 0
 <p>Таким образом, измерение по оси <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> всегда будет давать нам одно из этих двух значений и переводить состояние кубита в соответствующий собственный вектор.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Зачастую кубити измеряют именно в в <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>-базисе; является неким “стандартом” для квантовых вычислений, так как это измерение “ближе к железу”. Также <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>-базис удобен для нас из-за диагональности <a class="reference internal" href="../glossary.html#term-23"><span class="xref std std-term">оператора Паули</span></a> <span class="math notranslate nohighlight">\(\sigma^z\)</span>.</p>
+<p>Зачастую кубиты измеряют именно в в <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>-базисе; является неким “стандартом” для квантовых вычислений, так как это измерение “ближе к железу”. Также <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>-базис удобен для нас из-за диагональности <a class="reference internal" href="../glossary.html#term-23"><span class="xref std std-term">оператора Паули</span></a> <span class="math notranslate nohighlight">\(\sigma^z\)</span>.</p>
 </div>
 </div>
 <div class="section" id="id26">
@@ -1277,7 +1398,7 @@ i &amp; 0
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 1.+0.j, -1.+0.j]), array([[ 0.70710678-0.j,  0.70710678+0.j],
-       [ 0.70710678+0.j, -0.70710678-0.j]]))
+       [ 0.70710678+0.j, -0.70710678+0.j]]))
 (array([ 1.+0.j, -1.+0.j]), array([[-0.        -0.70710678j,  0.70710678+0.j        ],
        [ 0.70710678+0.j        ,  0.        -0.70710678j]]))
 </pre></div>
@@ -1310,11 +1431,26 @@ i &amp; 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2.23711432e-17+0.j]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.+0.j]]
 </pre></div>
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; -1 \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+= 0
+\end{split}\]</div>
 <p>С другой стороны, измеряя состояние <span class="math notranslate nohighlight">\(\ket{+}\)</span> в <em>X</em>-базисе мы всегда будем получать 1:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1328,6 +1464,21 @@ i &amp; 0
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+0 &amp; 1 \\
+1 &amp; 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+= 1
+\end{split}\]</div>
 </div>
 <div class="section" id="id29">
 <h3>Вероятности битовых строк<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
