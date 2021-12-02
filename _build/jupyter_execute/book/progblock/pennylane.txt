@@ -1,0 +1,90 @@
+import pennylane as qml
+from pennylane import numpy as np
+dev = qml.device('default.qubit', shots=1000, wires=2)
+def make_entanglement():
+    qml.Hadamard(wires=0)
+    qml.CNOT(wires=[0, 1])
+    return qml.probs(wires=[0, 1])
+
+circuit = qml.QNode(make_entanglement, dev)
+circuit()
+
+Работая с библиотекой PennyLane для математических операций, можно использовать интерфейс `NumPy`, но при этом также пользоваться преимуществами автоматического дифференцирования, которое обеспечивает <a href="https://github.com/HIPS/autograd">autograd</a>.
+Именно поэтому мы не импортировали `NumPy` обычным способом: `import numpy as np`, а сделали это так: `from pennylane import numpy as np`.
+
+Второй способ создания квантовых узлов -- с помощью декоратора `QNode`. Пропускаем импорт библиотек и создание устройства, так как в начале код тот же самый:
+
+```{code-cell} ipython3
+@qml.qnode(dev)
+def circuit():
+    qml.Hadamard(wires=0)
+    qml.CNOT(wires=[0, 1])
+    return qml.probs(wires=[0, 1])
+
+print(circuit())
+
+В данном примере мы взяли двухкубитную систему и создали запутанное состояние, а затем с помощью метода `probs` вычислили вероятности получения состояний $|00\rangle$, $|01\rangle$, $|10\rangle$, $|11\rangle$.
+
+## Операторы
+
+В квантовой функции можно применять операторы X, Y, Z, S, T (`qml.PauliX`, `qml.PauliY`, `qml.PauliZ`, `qml.S`, `qml.T` соответственно), а также операторы, в которых можно задавать угол вращения вокруг одной из осей в радианах: `qml.RX`, `qml.RY`, `qml.RZ`. Здесь и далее будем использовать `qml` как псевдоним библиотеки `PennyLane`.
+
+В этой функции мы вращаем кубит под индексом 0 вокруг оси X на 90 градусов из начального состояния $|0\rangle$ и возвращаем **ожидаемое значение** `qml.PauliZ` для этого кубита с помощью `qml.expval`. Вероятности получения состояний $|0\rangle$ и $|1\rangle$ равны, так что мы получаем ожидаемое значение, близкое к нулю, что легко проверить:
+
+$$0.5 \cdot 1 + 0.5 \cdot (-1) = 0$$
+
+```{code-cell} ipython3
+@qml.qnode(dev)
+def circuit(x):
+    qml.RX(x, wires=0)
+    return qml.expval(qml.PauliZ(0))
+
+circuit(np.pi/2)
+
+В следующем примере мы вращаем кубит на тот же угол 90 градусов, но уже вокруг оси Y. Ожидаемое значение в этот раз ищем для `qml.PauliX` и получаем 1, что соответствует вычислениям:
+
+$$1 \cdot 1 + 0 \cdot (-1) = 1$$
+
+```{code-cell} ipython3
+@qml.qnode(dev)
+def circuit(x):
+    qml.RY(x, wires=0)
+    return qml.expval(qml.PauliX(0))
+
+circuit(np.pi/2)
+
+dev.shots = 5
+
+@qml.qnode(dev)
+def circuit():
+    qml.Hadamard(wires=1)
+    return qml.sample(qml.PauliZ([1]))
+
+circuit()
+
+@qml.qnode(dev)
+def circuit():
+    qml.Hadamard(wires=1)
+    return qml.sample(qml.PauliX([1]))
+
+circuit()
+
+U = np.array([[1, 0, 0, 0],
+              [0, 0, 1, 0],
+              [0, 1, 0, 0],
+              [0, 0, 0, 1]])
+
+dev = qml.device('default.qubit', shots=1, wires=2)
+
+@qml.qnode(dev)
+def circuit(do_swap):
+    qml.PauliX(wires=0)
+    if do_swap:
+        qml.QubitUnitary(U, wires=[0, 1])
+    return qml.sample(qml.PauliZ([0])), qml.sample(qml.PauliZ([1]))
+
+circuit(do_swap=False)
+
+circuit(do_swap=True)
+
+print(circuit.draw())
