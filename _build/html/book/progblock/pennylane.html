@@ -724,18 +724,21 @@ def circuit(x):
     return qml.expval(qml.PauliZ(0))
 
 circuit(np.pi/2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>В следующем примере мы вращаем кубит на тот же угол 90 градусов, но уже вокруг оси Y. Ожидаемое значение в этот раз ищем для <code class="docutils literal notranslate"><span class="pre">qml.PauliX</span></code> и получаем 1, что соответствует вычислениям:</p>
+<div class="math notranslate nohighlight">
+\[1 \cdot 1 + 0 \cdot (-1) = 1\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
-В следующем примере мы вращаем кубит на тот же угол 90 градусов, но уже вокруг оси Y. Ожидаемое значение в этот раз ищем для `qml.PauliX` и получаем 1, что соответствует вычислениям:
-
-$$1 \cdot 1 + 0 \cdot (-1) = 1$$
-
-```{code-cell} ipython3
-@qml.qnode(dev)
-def circuit(x):
-    qml.RY(x, wires=0)
-    return qml.expval(qml.PauliX(0))
-
-circuit(np.pi/2)
+<span class="n">circuit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -1,3 +1,22 @@
+Traceback (most recent call last):
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/client.py", line 1117, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/util.py", line 78, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/util.py", line 57, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/client.py", line 558, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/client.py", line 862, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/runner/work/qmlcourse/qmlcourse/.venv/lib/python3.8/site-packages/nbclient/client.py", line 765, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
 import pennylane as qml
 from pennylane import numpy as np
 dev = qml.device('default.qubit', shots=1000, wires=2)
@@ -40,46 +59,12 @@ def circuit(x):
     return qml.expval(qml.PauliZ(0))
 
 circuit(np.pi/2)
+------------------
 
-@qml.qnode(dev)
-def circuit(x):
-    qml.RY(x, wires=0)
-    return qml.expval(qml.PauliX(0))
+[0;36m  File [0;32m"/tmp/ipykernel_6710/1730742679.py"[0;36m, line [0;32m12[0m
+[0;31m    Работая с библиотекой PennyLane для математических операций, можно использовать интерфейс `NumPy`, но при этом также пользоваться преимуществами автоматического дифференцирования, которое обеспечивает <a href="https://github.com/HIPS/autograd">autograd</a>.[0m
+[0m            ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
 
-circuit(np.pi/2)
+SyntaxError: invalid syntax (1730742679.py, line 12)
 
-dev.shots = 5
-
-@qml.qnode(dev)
-def circuit():
-    qml.Hadamard(wires=1)
-    return qml.sample(qml.PauliZ([1]))
-
-circuit()
-
-@qml.qnode(dev)
-def circuit():
-    qml.Hadamard(wires=1)
-    return qml.sample(qml.PauliX([1]))
-
-circuit()
-
-U = np.array([[1, 0, 0, 0],
-              [0, 0, 1, 0],
-              [0, 1, 0, 0],
-              [0, 0, 0, 1]])
-
-dev = qml.device('default.qubit', shots=1, wires=2)
-
-@qml.qnode(dev)
-def circuit(do_swap):
-    qml.PauliX(wires=0)
-    if do_swap:
-        qml.QubitUnitary(U, wires=[0, 1])
-    return qml.sample(qml.PauliZ([0])), qml.sample(qml.PauliZ([1]))
-
-circuit(do_swap=False)
-
-circuit(do_swap=True)
-
-print(circuit.draw())
