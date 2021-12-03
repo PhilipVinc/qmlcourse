@@ -488,6 +488,18 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  От проблем к обучению
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../problems2qml/jordanwigner.html">
+   🟩 Преобразование Жордана-Вигнера
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   D-Wave – квантовый отжиг и семплирование
  </span>
 </p>
@@ -1398,7 +1410,7 @@ i &amp; 0
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 1.+0.j, -1.+0.j]), array([[ 0.70710678-0.j,  0.70710678+0.j],
-       [ 0.70710678+0.j, -0.70710678+0.j]]))
+       [ 0.70710678+0.j, -0.70710678-0.j]]))
 (array([ 1.+0.j, -1.+0.j]), array([[-0.        -0.70710678j,  0.70710678+0.j        ],
        [ 0.70710678+0.j        ,  0.        -0.70710678j]]))
 </pre></div>
@@ -1431,7 +1443,7 @@ i &amp; 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.+0.j]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-2.23711432e-17+0.j]]
 </pre></div>
 </div>
 </div>
@@ -1509,6 +1521,42 @@ i &amp; 0
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{P}_{\ket{\Phi_0}}
+=
+\begin{bmatrix}
+1 \\
+0
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+1 &amp; 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 0 \\
+\end{bmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{P}_{\ket{\Phi_1}}
+=
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+0 &amp; 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 &amp; 0 \\
+0 &amp; 1 \\
+\end{bmatrix}
+\end{split}\]</div>
 </div>
 <div class="section" id="id32">
 <h4>Правило Борна<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
@@ -1521,10 +1569,55 @@ i &amp; 0
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_0</span> <span class="o">=</span> <span class="n">super_position</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proj_0</span> <span class="o">@</span> <span class="n">super_position</span>
-<span class="n">p_1</span> <span class="o">=</span> <span class="n">super_position</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proj_1</span> <span class="o">@</span> <span class="n">super_position</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">p_0</span> <span class="o">+</span> <span class="n">p_1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">p_0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{P}(\lambda_0) =
+\Bigg(
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 0 \\
+\end{bmatrix}
+\Bigg)
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\Bigg(
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\Bigg)
+= \frac{1}{2}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_1</span> <span class="o">=</span> <span class="n">super_position</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proj_1</span> <span class="o">@</span> <span class="n">super_position</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">p_1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">p_0</span> <span class="o">+</span> <span class="n">p_1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1535,6 +1628,38 @@ True
 </div>
 </div>
 </div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{P}(\lambda_1) =
+\Bigg(
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+0 &amp; 0 \\
+0 &amp; 1 \\
+\end{bmatrix}
+\Bigg)
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} &amp; \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\Bigg(
+\begin{bmatrix}
+0 &amp; 0 \\
+0 &amp; 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}}
+\end{bmatrix}
+\Bigg)
+= \frac{1}{2}
+\end{split}\]</div>
 </div>
 </div>
 </div>

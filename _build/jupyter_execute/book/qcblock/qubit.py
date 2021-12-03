@@ -593,6 +593,42 @@ proj_0 = eigenvectors[0].reshape((-1, 1)) @ eigenvectors[0].reshape((1, -1))
 proj_1 = eigenvectors[1].reshape((-1, 1)) @ eigenvectors[1].reshape((1, -1))
 
 
+# $$
+# \hat{P}_{\ket{\Phi_0}}
+# =
+# \begin{bmatrix}
+# 1 \\
+# 0
+# \end{bmatrix}
+# \otimes
+# \begin{bmatrix}
+# 1 & 0
+# \end{bmatrix}
+# =
+# \begin{bmatrix}
+# 1 & 0 \\
+# 0 & 0 \\
+# \end{bmatrix}
+# $$
+# 
+# $$
+# \hat{P}_{\ket{\Phi_1}}
+# =
+# \begin{bmatrix}
+# 0 \\
+# 1
+# \end{bmatrix}
+# \otimes
+# \begin{bmatrix}
+# 0 & 1
+# \end{bmatrix}
+# =
+# \begin{bmatrix}
+# 0 & 0 \\
+# 0 & 1 \\
+# \end{bmatrix}
+# $$
+# 
 # #### Правило Борна
 # 
 # Как мы уже говорили, любому эрмитову оператору соответствует какая-либо наблюдаемая величина. А какая наблюдаемая величина соответствует оператору проекции на собственный вектор $\ket{\Phi}$, про который мы говорили выше? Ответ -- вероятность наблюдения собственного значения, которое соответствует этому собственному вектору. Значит, чтобы получить вероятность измерения значения $\lambda_i$ эрмитова оператора $\hat{A}$ (которое соответствует собственному вектору $\ket{\Phi_i}$ этого оператора) в состоянии $\ket{\Psi}$, мы должны измерить величину $\bra{\Psi} \hat{P}_{\ket{\Phi_i}} \ket{\Psi}$. Это называется правилом Борна.
@@ -607,12 +643,83 @@ proj_1 = eigenvectors[1].reshape((-1, 1)) @ eigenvectors[1].reshape((1, -1))
 
 
 p_0 = super_position.conj().T @ proj_0 @ super_position
-p_1 = super_position.conj().T @ proj_1 @ super_position
 
-print(np.allclose(p_0 + p_1, 1.0))
 print(np.allclose(p_0, 0.5))
 
 
+# $$
+# \mathbf{P}(\lambda_0) =
+# \Bigg(
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \begin{bmatrix}
+# 1 & 0 \\
+# 0 & 0 \\
+# \end{bmatrix}
+# \Bigg)
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} \\
+# \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# =
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \Bigg(
+# \begin{bmatrix}
+# 1 & 0 \\
+# 0 & 0 \\
+# \end{bmatrix}
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} \\
+# \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \Bigg)
+# = \frac{1}{2}
+# $$
+
+# In[21]:
+
+
+p_1 = super_position.conj().T @ proj_1 @ super_position
+
+print(np.allclose(p_1, 0.5))
+print(np.allclose(p_0 + p_1, 1.0))
+
+
+# $$
+# \mathbf{P}(\lambda_1) =
+# \Bigg(
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \begin{bmatrix}
+# 0 & 0 \\
+# 0 & 1 \\
+# \end{bmatrix}
+# \Bigg)
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} \\
+# \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# =
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \Bigg(
+# \begin{bmatrix}
+# 0 & 0 \\
+# 0 & 1 \\
+# \end{bmatrix}
+# \begin{bmatrix}
+# \frac{1}{\sqrt{2}} \\
+# \frac{1}{\sqrt{2}}
+# \end{bmatrix}
+# \Bigg)
+# = \frac{1}{2}
+# $$
+# 
 # ## Что мы узнали?
 # 
 # - Состояние и значение для кубита -- это не одно и то же.
