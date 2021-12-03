@@ -3,10 +3,10 @@ from dwave.system import DWaveSampler, EmbeddingComposite
 import networkx as nx
 import matplotlib.pyplot as plt
 
-provinces = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
-neighbors = [('AB', 'BC'), ('AB', 'NT'), ('AB', 'SK'), ('BC', 'NT'), ('BC', 'YT'),
-             ('MB', 'NU'), ('MB', 'ON'), ('MB', 'SK'), ('NB', 'NS'), ('NB', 'QC'),
-             ('NL', 'QC'), ('NT', 'NU'), ('NT', 'SK'), ('NT', 'YT'), ('ON', 'QC')]
+provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
+neighbors = [("AB", "BC"), ("AB", "NT"), ("AB", "SK"), ("BC", "NT"), ("BC", "YT"),
+             ("MB", "NU"), ("MB", "ON"), ("MB", "SK"), ("NB", "NS"), ("NB", "QC"),
+             ("NL", "QC"), ("NT", "NU"), ("NT", "SK"), ("NT", "YT"), ("ON", "QC")]
 
 def not_both_1(v: bool, u: bool) -> bool:
     return not (v and u)
@@ -32,7 +32,7 @@ import os
 base_sampler = DWaveSampler(token=os.environ["DWAVE_TOKEN"])
 
 sampler = EmbeddingComposite(base_sampler)
-sampleset = sampler.sample(bqm, num_reads=1000, label='Canada Map Coloring')
+sampleset = sampler.sample(bqm, num_reads=1000, label="Canada Map Coloring")
 
 sample = sampleset.first.sample
 if not csp.check(sample):
@@ -42,9 +42,10 @@ else:
 
 from typing import List
 from typing import Tuple
+from typing import Dict
 
 
-def plot_map(sample: dict[str, bool], provinces: List[str], neighbors: List[Tuple[str]]):
+def plot_map(sample: Dict[str, bool], provinces: List[str], neighbors: List[Tuple[str]]) -> None:
     G = nx.Graph()
     G.add_nodes_from(provinces)
     G.add_edges_from(neighbors)
