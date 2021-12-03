@@ -654,6 +654,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Операторы
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#qubitunitary">
    QubitUnitary
   </a>
@@ -682,48 +687,67 @@
 <p>Рассмотрим первый способ – явное создание узла.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>import pennylane as qml
-from pennylane import numpy as np
-dev = qml.device(&#39;default.qubit&#39;, shots=1000, wires=2)
-def make_entanglement():
-    qml.Hadamard(wires=0)
-    qml.CNOT(wires=[0, 1])
-    return qml.probs(wires=[0, 1])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_entanglement</span><span class="p">():</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">probs</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-circuit = qml.QNode(make_entanglement, dev)
-circuit()
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">QNode</span><span class="p">(</span><span class="n">make_entanglement</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">circuit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.484, 0.   , 0.   , 0.516], requires_grad=False)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Работая с библиотекой PennyLane для математических операций, можно использовать интерфейс <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>, но при этом также пользоваться преимуществами автоматического дифференцирования, которое обеспечивает <a href="https://github.com/HIPS/autograd">autograd</a>.
+Именно поэтому мы не импортировали <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> обычным способом: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>, а сделали это так: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pennylane</span> <span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>.</p>
+<p>Второй способ создания квантовых узлов – с помощью декоратора <code class="docutils literal notranslate"><span class="pre">QNode</span></code>. Пропускаем импорт библиотек и создание устройства, так как в начале код тот же самый:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">():</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">probs</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-Работая с библиотекой PennyLane для математических операций, можно использовать интерфейс `NumPy`, но при этом также пользоваться преимуществами автоматического дифференцирования, которое обеспечивает &lt;a href=&quot;https://github.com/HIPS/autograd&quot;&gt;autograd&lt;/a&gt;.
-Именно поэтому мы не импортировали `NumPy` обычным способом: `import numpy as np`, а сделали это так: `from pennylane import numpy as np`.
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.496 0.    0.    0.504]
+</pre></div>
+</div>
+</div>
+</div>
+<p>В данном примере мы взяли двухкубитную систему и создали запутанное состояние, а затем с помощью метода <code class="docutils literal notranslate"><span class="pre">probs</span></code> вычислили вероятности получения состояний <span class="math notranslate nohighlight">\(|00\rangle\)</span>, <span class="math notranslate nohighlight">\(|01\rangle\)</span>, <span class="math notranslate nohighlight">\(|10\rangle\)</span>, <span class="math notranslate nohighlight">\(|11\rangle\)</span>.</p>
+</div>
+<div class="section" id="id2">
+<h2>Операторы<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>В квантовой функции можно применять операторы X, Y, Z, S, T (<code class="docutils literal notranslate"><span class="pre">qml.PauliX</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.PauliY</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.PauliZ</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.S</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.T</span></code> соответственно), а также операторы, в которых можно задавать угол вращения вокруг одной из осей в радианах: <code class="docutils literal notranslate"><span class="pre">qml.RX</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.RY</span></code>, <code class="docutils literal notranslate"><span class="pre">qml.RZ</span></code>. Здесь и далее будем использовать <code class="docutils literal notranslate"><span class="pre">qml</span></code> как псевдоним библиотеки <code class="docutils literal notranslate"><span class="pre">PennyLane</span></code>.</p>
+<p>В этой функции мы вращаем кубит под индексом 0 вокруг оси X на 90 градусов из начального состояния <span class="math notranslate nohighlight">\(|0\rangle\)</span> и возвращаем <strong>ожидаемое значение</strong> <code class="docutils literal notranslate"><span class="pre">qml.PauliZ</span></code> для этого кубита с помощью <code class="docutils literal notranslate"><span class="pre">qml.expval</span></code>. Вероятности получения состояний <span class="math notranslate nohighlight">\(|0\rangle\)</span> и <span class="math notranslate nohighlight">\(|1\rangle\)</span> равны, так что мы получаем ожидаемое значение, близкое к нулю, что легко проверить:</p>
+<div class="math notranslate nohighlight">
+\[0.5 \cdot 1 + 0.5 \cdot (-1) = 0\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
-Второй способ создания квантовых узлов -- с помощью декоратора `QNode`. Пропускаем импорт библиотек и создание устройства, так как в начале код тот же самый:
-
-```{code-cell} ipython3
-@qml.qnode(dev)
-def circuit():
-    qml.Hadamard(wires=0)
-    qml.CNOT(wires=[0, 1])
-    return qml.probs(wires=[0, 1])
-
-print(circuit())
-
-В данном примере мы взяли двухкубитную систему и создали запутанное состояние, а затем с помощью метода `probs` вычислили вероятности получения состояний $|00\rangle$, $|01\rangle$, $|10\rangle$, $|11\rangle$.
-
-## Операторы
-
-В квантовой функции можно применять операторы X, Y, Z, S, T (`qml.PauliX`, `qml.PauliY`, `qml.PauliZ`, `qml.S`, `qml.T` соответственно), а также операторы, в которых можно задавать угол вращения вокруг одной из осей в радианах: `qml.RX`, `qml.RY`, `qml.RZ`. Здесь и далее будем использовать `qml` как псевдоним библиотеки `PennyLane`.
-
-В этой функции мы вращаем кубит под индексом 0 вокруг оси X на 90 градусов из начального состояния $|0\rangle$ и возвращаем **ожидаемое значение** `qml.PauliZ` для этого кубита с помощью `qml.expval`. Вероятности получения состояний $|0\rangle$ и $|1\rangle$ равны, так что мы получаем ожидаемое значение, близкое к нулю, что легко проверить:
-
-$$0.5 \cdot 1 + 0.5 \cdot (-1) = 0$$
-
-```{code-cell} ipython3
-@qml.qnode(dev)
-def circuit(x):
-    qml.RX(x, wires=0)
-    return qml.expval(qml.PauliZ(0))
-
-circuit(np.pi/2)
+<span class="n">circuit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.058, requires_grad=True)
 </pre></div>
 </div>
 </div>
@@ -733,7 +757,7 @@ circuit(np.pi/2)
 \[1 \cdot 1 + 0 \cdot (-1) = 1\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
@@ -742,11 +766,16 @@ circuit(np.pi/2)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(1., requires_grad=True)
+</pre></div>
+</div>
+</div>
 </div>
 <p>В начале этого урока мы создали устройство, которое создает и запускает одну и ту же схему 1000 раз, каждый раз производя измерения. Поменяем этот параметр:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span><span class="o">.</span><span class="n">shots</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span><span class="o">.</span><span class="n">shots</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
 </div>
@@ -754,7 +783,7 @@ circuit(np.pi/2)
 <p>Посмотрим на результат каждого из этих пяти запусков и измерений для <code class="docutils literal notranslate"><span class="pre">qml.PauliZ</span></code>. Квантовая схема будет простой: применим к кубиту с индексом 1 оператор Адамара:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">circuit</span><span class="p">():</span>
     <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
@@ -763,17 +792,27 @@ circuit(np.pi/2)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1,  1, -1,  1, -1])
+</pre></div>
+</div>
+</div>
 </div>
 <p>Мы получаем разные результаты: то 1, что соответствует состоянию <span class="math notranslate nohighlight">\(|0\rangle\)</span>, то -1, что соответствует состоянию <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
 <p>Если вместо <code class="docutils literal notranslate"><span class="pre">qml.PauliZ</span></code> брать сэмплы для <code class="docutils literal notranslate"><span class="pre">qml.PauliX</span></code>, то результат все время будет один и тот же: 1, что соответствует состоянию <span class="math notranslate nohighlight">\(|+\rangle\)</span> (вектор базиса Адамара).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">circuit</span><span class="p">():</span>
     <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
 
 <span class="n">circuit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 1, 1, 1])
 </pre></div>
 </div>
 </div>
@@ -786,7 +825,7 @@ circuit(np.pi/2)
 <p>В качестве примера создадим оператор, осуществляющий обмен состояний между кубитами (SWAP). Такой оператор уже есть в библиотеке PennyLane (<code class="docutils literal notranslate"><span class="pre">qml.SWAP</span></code>), но мы создадим его с помощью <code class="docutils literal notranslate"><span class="pre">qml.QubitUnitary</span></code>. Сначала мы зададим саму матрицу в виде двумерного массива, используя интерфейс <code class="docutils literal notranslate"><span class="pre">NumPy</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
@@ -797,7 +836,7 @@ circuit(np.pi/2)
 <p>Создадим заново устройство, при этом зададим число запусков схемы как <code class="docutils literal notranslate"><span class="pre">shots=1</span></code>: чтобы убедиться, что все работает правильно, нам будет достаточно одного запуска.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -805,7 +844,7 @@ circuit(np.pi/2)
 <p>Создадим и запустим схему, в которой перед применением операции SWAP, реализованной с помощью <code class="docutils literal notranslate"><span class="pre">qml.QubitUnitary</span></code>, один кубит будет находиться в состоянии 1, а другой – в состоянии 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">do_swap</span><span class="p">):</span>
     <span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">do_swap</span><span class="p">:</span>
@@ -818,7 +857,13 @@ circuit(np.pi/2)
 <p>Запустим схему сначала без применения операции SWAP:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="p">(</span><span class="n">do_swap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="p">(</span><span class="n">do_swap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1],
+       [ 1]])
 </pre></div>
 </div>
 </div>
@@ -826,7 +871,13 @@ circuit(np.pi/2)
 <p>А затем – с применением:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="p">(</span><span class="n">do_swap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span><span class="p">(</span><span class="n">do_swap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1],
+       [-1]])
 </pre></div>
 </div>
 </div>
@@ -834,7 +885,18 @@ circuit(np.pi/2)
 <p>Видим, что во втором случае операция SWAP сработала: состояния кубитов поменялись местами. Можно посмотреть, как выглядит такая схема:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0: ──X──╭U0──┤ Sample[Z] 
+ 1: ─────╰U0──┤ Sample[Z] 
+U0 =
+[[1 0 0 0]
+ [0 0 1 0]
+ [0 1 0 0]
+ [0 0 0 1]]
 </pre></div>
 </div>
 </div>
