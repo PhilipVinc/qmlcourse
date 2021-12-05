@@ -270,11 +270,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../progblock/cirq_tfq.html">
-   🟧 Cirq &amp; TFQ
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../progblock/qiskit.html">
    🟧 Qiskit
   </a>
@@ -504,12 +499,34 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="jordanwigner.html">
-   🟩 Преобразование Жордана-Вигнера
+   🟧 Преобразование Жордана-Вигнера
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="eigenvals.html">
    🟩 О собственных значениях
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  VQE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vqeblock/vqeintro.html">
+   ⬜ О блоке
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vqeblock/vqe.html">
+   🟩 Основы VQE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vqeblock/tspvqe.html">
+   🟧 VQE - практика
   </a>
  </li>
 </ul>
@@ -732,10 +749,10 @@
                 
   <div class="section" id="np2ising">
 <span id="id1"></span><h1>Формулировка задач оптимизации в терминах модели Изинга<a class="headerlink" href="#np2ising" title="Permalink to this headline">¶</a></h1>
-<p>Мы не зря так глубоко изучали <a class="reference internal" href="../problemsblock/ising.html#ising"><span class="std std-ref">модель Изинга</span></a> и <a class="reference internal" href="../problemsblock/advising.html#advising"><span class="std std-ref">анализировали</span></a> ее решения – сегодня увидим, как в терминах этой модели можно сформулировать большинство важных задач <a class="reference internal" href="../problemsblock/copt.html#copt"><span class="std std-ref">комбинаторной оптимизации</span></a>.</p>
+<p>Не зря так глубоко изучали <a class="reference internal" href="../problemsblock/ising.html#ising"><span class="std std-ref">модель Изинга</span></a> и <a class="reference internal" href="../problemsblock/advising.html#advising"><span class="std std-ref">анализировали</span></a> ее решения – сегодня увидим, как в терминах этой модели можно сформулировать большинство важных задач <a class="reference internal" href="../problemsblock/copt.html#copt"><span class="std std-ref">комбинаторной оптимизации</span></a>.</p>
 <div class="section" id="qubo">
 <h2>QUBO матрица<a class="headerlink" href="#qubo" title="Permalink to this headline">¶</a></h2>
-<p>Но сначала мы кратко обсудим так называемую <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> матрицу <span id="id2">[<a class="reference internal" href="../bibliography.html#id30"><span>GKD19</span></a>]</span> – это еще один способ записать задачу модель Изинга и дальше по курсу иногда будем этим пользоваться.</p>
+<p>Но сначала кратко обсудим так называемую <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> матрицу <span id="id2">[<a class="reference internal" href="../bibliography.html#id30"><span>GKD19</span></a>]</span> – это еще один способ записать задачу модель Изинга и дальше по курсу иногда будем этим пользоваться.</p>
 <p><code class="docutils literal notranslate"><span class="pre">QUBO</span></code> – это сокращение от <strong>Quadratic Unconstrainde Binary Optimization</strong>, или, если переводить, то это <em>задачи квадратичной оптимизации без ограничений</em>. То есть это такие задачи, для которых нет отдельных ограничений, например равенств или неравенств, а функция стоимости представима в виде многочлена второй степени от входных переменных. А решением такой задачи является бинарный вектор <span class="math notranslate nohighlight">\(X = \{x_1, x_2, ..., x_n\}\)</span> такой, что <span class="math notranslate nohighlight">\(x_1, ..., x_n \in \{0, 1\}\)</span>. В этом случае функцию стоимости <span class="math notranslate nohighlight">\(C\)</span> можно записать в виде:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -757,7 +774,7 @@ Q = \begin{pmatrix}
 \]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Тут мы рассматриваем именно минимизацию функции стоимости. Но если исходная задача формулировалась в терминах максимизации чего-то, например, как задача о рюкзаке или максимальном разрезе в графе, то очевидно, что просто домножив стоимость на -1 мы перейдем от максимизации к минимизации. Далее для нас это будет важно, так как будем рассматривать задачу как поиск <em>основного состояния</em> квантомеханической системы, а такое состояние это по определению состояние именно с <em>минимальной</em> энергией.</p>
+<p>Тут рассматриваем именно минимизацию функции стоимости. Но если исходная задача формулировалась в терминах максимизации чего-то, например, как задача о рюкзаке или максимальном разрезе в графе, то очевидно, что просто домножив стоимость на -1 перейдем от максимизации к минимизации. Далее для нас это будет важно, так как будем рассматривать задачу как поиск <em>основного состояния</em> квантомеханической системы, а такое состояние это по определению состояние именно с <em>минимальной</em> энергией.</p>
 </div>
 </div>
 <div class="section" id="id3">
@@ -815,13 +832,13 @@ C = \sum_{i, j \in \{1, ..., |X|\}} J_{i, j} sz_i sz_j + \sum_{i \in {\{1, ..., 
 \arg\max{V_1, V_2} {\sum_{u,v,w \in E} w (\mathbf{1}(u \in V_1, v \in V_2) + \mathbf{1}(u \in V_2, v \in V_1))}
 \]</div>
 <div class="figure align-default" id="maxcut">
-<a class="reference internal image-reference" href="../../_images/Max-cut.png"><img alt="../../_images/Max-cut.png" src="../../_images/Max-cut.png" style="width: 400px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 124 </span><span class="caption-text">Иллюстрация задачи о максимальном разрезе в графе</span><a class="headerlink" href="#maxcut" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="_static/problemsblock/ising/Max-cut.png"><img alt="_static/problemsblock/ising/Max-cut.png" src="_static/problemsblock/ising/Max-cut.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 123 </span><span class="caption-text">Иллюстрация задачи о максимальном разрезе в графе</span><a class="headerlink" href="#maxcut" title="Permalink to this image">¶</a></p>
 </div>
 <p>Эта задача уже является задачей без ограничений и может быть сразу сформулирована в терминах <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> и модели Изинга.</p>
 <div class="section" id="id8">
 <h3><code class="docutils literal notranslate"><span class="pre">QUBO</span></code> матрица<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">QUBO</span></code> матрица для этой задачи имеет размер <span class="math notranslate nohighlight">\(|V| \times |V|\)</span>, а вектор решения <span class="math notranslate nohighlight">\(X\)</span> это, соответственно, будет бинарный вектор длины <span class="math notranslate nohighlight">\(|V|\)</span>. Для простоты обозначим сообщество <span class="math notranslate nohighlight">\(V_1\)</span> как вершины, для которых <span class="math notranslate nohighlight">\(x_i = 0\)</span>, а <span class="math notranslate nohighlight">\(V_2\)</span> это будут вершины с <span class="math notranslate nohighlight">\(x_i = 1\)</span>. Ну и еще мы хотим решать задачу минимизации вместо задачи максимизации. Запишем новую целевую функцию:</p>
+<p><code class="docutils literal notranslate"><span class="pre">QUBO</span></code> матрица для этой задачи имеет размер <span class="math notranslate nohighlight">\(|V| \times |V|\)</span>, а вектор решения <span class="math notranslate nohighlight">\(X\)</span> это, соответственно, будет бинарный вектор длины <span class="math notranslate nohighlight">\(|V|\)</span>. Для простоты обозначим сообщество <span class="math notranslate nohighlight">\(V_1\)</span> как вершины, для которых <span class="math notranslate nohighlight">\(x_i = 0\)</span>, а <span class="math notranslate nohighlight">\(V_2\)</span> это будут вершины с <span class="math notranslate nohighlight">\(x_i = 1\)</span>. Ну и еще хотим решать задачу минимизации вместо задачи максимизации. Запишем новую целевую функцию:</p>
 <div class="math notranslate nohighlight">
 \[
 C = - \sum_{i,j \in \{1, .., |V|\}} w_{i,j} (x_i + x_j - 2 x_i x_j)
@@ -853,15 +870,15 @@ QUBO = \begin{pmatrix}
 \[
 C = A (1 - \sum_i x_{i,p})^2 + A (1 - \sum_p x_{i,p})^2 + A \sum_{u,v \notin E} x_{u,p} x_{v,p+1} + B \sum_{u,v,w \in E} w x_{u,p} x_{v,p+1}
 \]</div>
-<p>Для нас удобно, что это уже задача минимизации. В данном случае, <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-матрица получается при помощи явного раскрытия скобок в выражении для стоимости. Можно заметить, что в этом случае мы получаем также элементы 0-й степени, но формат <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-матрицы такого не предусматривает. Но во-первых, в данном случае мы легко можем определить разницу между <span class="math notranslate nohighlight">\(X^T Q X\)</span> и минимумом <span class="math notranslate nohighlight">\(C\)</span>, а во-вторых, для нас это не столь важно – нам нужно решение, а значение энергии/функции стоимости получается без каких-либо проблем за полиномиальное время.</p>
+<p>Для нас удобно, что это уже задача минимизации. В данном случае, <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-матрица получается при помощи явного раскрытия скобок в выражении для стоимости. Можно заметить, что в этом случае получаем также элементы 0-й степени, но формат <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-матрицы такого не предусматривает. Но во-первых, в данном случае легко можем определить разницу между <span class="math notranslate nohighlight">\(X^T Q X\)</span> и минимумом <span class="math notranslate nohighlight">\(C\)</span>, а во-вторых, для нас это не столь важно – нам нужно решение, а значение энергии/функции стоимости получается без каких-либо проблем за полиномиальное время.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Это довольно важное замечание, так как часто можно найти относительно простое представлениие задачи в виде <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>, а вот учет всех констант может сильно усложнить ее вид. Более того, как мы увидим далее, не все представления <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> одинаково эффективны, особенно когда переходят к решению на квантовом компьютере: для каких-то видов <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> будет одна величина энергетической щели между основным и возбужденным состоянием в процессе решения, а для других <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-представлений той же задачи оно уже может стать больше!</p>
+<p>Это довольно важное замечание, так как часто можно найти относительно простое представлениие задачи в виде <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>, а вот учет всех констант может сильно усложнить ее вид. Более того, как увидим далее, не все представления <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> одинаково эффективны, особенно когда переходят к решению на квантовом компьютере: для каких-то видов <code class="docutils literal notranslate"><span class="pre">QUBO</span></code> будет одна величина энергетической щели между основным и возбужденным состоянием в процессе решения, а для других <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>-представлений той же задачи оно уже может стать больше!</p>
 </div>
 </div>
 <div class="section" id="id11">
 <h2>Задача о выделении сообществ в графе<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<p>Мы уже <a class="reference external" href="../problemsblock/copt.html#id3">говорили об этой задаче</a> в лекции про комбинаторную оптимизацию. Для этой задачи было разработано немало эвристических алгоритмов поиска <span id="id12">[<a class="reference internal" href="../bibliography.html#id58"><span>SCBR14</span></a>]</span>, а в этой части сосредоточимся на формулировке как задачи <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>.</p>
+<p>Уже <a class="reference external" href="../problemsblock/copt.html#id3">говорили об этой задаче</a> в лекции про комбинаторную оптимизацию. Для этой задачи было разработано немало эвристических алгоритмов поиска <span id="id12">[<a class="reference internal" href="../bibliography.html#id58"><span>SCBR14</span></a>]</span>, а в этой части сосредоточимся на формулировке как задачи <code class="docutils literal notranslate"><span class="pre">QUBO</span></code>.</p>
 <div class="section" id="k-2">
 <h3><span class="math notranslate nohighlight">\(k = 2\)</span> сообществ<a class="headerlink" href="#k-2" title="Permalink to this headline">¶</a></h3>
 <p>В случае всего двух сообществ будем использовать двоичные спиновые переменные <span class="math notranslate nohighlight">\(s_i \in \{-1,1\}\)</span> для кодирования к какому именно сообществу принадлежит вершина <span class="math notranslate nohighlight">\(i\)</span>. <span class="math notranslate nohighlight">\(\frac{1 + s_is_j}{2}\)</span> будет равняться <span class="math notranslate nohighlight">\(1\)</span>, если <span class="math notranslate nohighlight">\(i\)</span> и <span class="math notranslate nohighlight">\(j\)</span> принадлежат одному сообществу и <span class="math notranslate nohighlight">\(0\)</span> в противоположном. Модулярность при этом будет следующей</p>
