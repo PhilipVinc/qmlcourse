@@ -167,6 +167,8 @@
       title: 🟩 Комбинаторная оптимизация
     - file: book/problemsblock/hw5_problemsblock
       title: ⬜ Задание 5
+    - file: book/problemsblock/hw5_problemsblock_solution
+      title: ⬜ Решение Задания 5
 
 - part: От проблем к обучению
   chapters:
