@@ -49,7 +49,7 @@
 # 
 # Давайте вспомним мысленный эксперимента Шредингера. Кот, который одновременно и жив, и мертв. Понятно, что _значение_ кота точно одно: он либо жив, либо мертв. Но _состояние_ его более сложное. Он находится в _суперпозиции_ состояний "жив" и "мертв" одновременно.
 # 
-# ```{figure} /_static/qcblock/qubit/Schrodingers_cat.svg
+# ```{figure} /_static/qcblock/qubit/Schrodingers_cat.png
 # :width: 600px
 # :name: schrodingers_cat
 # 
@@ -285,7 +285,7 @@ print(np.allclose(np.conj(R).T @ L, 0))
 # 
 # Обозначения $\ket{0}, \ket{1}, \ket{+}, \ket{-}, \ket{R}, \ket{L}$ выбраны неслучайно: они имеют геометрический смысл.
 # 
-# ```{figure} /_static/qcblock/qubit/Blochsphere.svg
+# ```{figure} /_static/qcblock/qubit/Blochsphere.png
 # :name: blochcphere
 # :width: 400px
 # 
