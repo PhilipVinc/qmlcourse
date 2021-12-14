@@ -84,7 +84,7 @@
         
 
 \title{QMLCourse}
-\date{Dec 13, 2021}
+\date{Dec 14, 2021}
 \release{}
 \author{ODS Quantum Community}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -21393,7 +21393,22 @@ Quantum solution (total cost): 213.0
 Как помним, квантовый гамильтониан является оператором, ставящим в соответствие собственным состояниям системы ее энергии. Множество собственных чисел гамильтониана называется его спектром. В квантовом отжигателе \sphinxcode{\sphinxupquote{D\sphinxhyphen{}Wave}} гамильтониан имеет следующую форму:
 \begin{equation*}
 \begin{split}
-\mathcal{H}_{Ising}=\underbrace{{-A(t)}\left(\sum_{i} \hat{\sigma}_{x}^{(i)}\right)}_{\text {Initial Hamiltonian }}+\underbrace{{B(t)}\left(\sum_{i} h_{i} \hat{\sigma}_{z}^{(i)}+\sum_{i,j} J_{i, j} \hat{\sigma}_{z}^{(i)} \hat{\sigma}_{z}^{(j)}\right)}_{\text {Final Hamiltonian }},
+\mathcal{H}_{Ising} =
+    A(t) \cdot
+    \underbrace{
+        \left( -\sum_{i} \hat{\sigma}_{x}^{(i)} \right)
+    }_{
+        \text{Initial Hamiltonian}
+    }
+    + B(t) \cdot
+    \underbrace{
+        \left(
+            \sum_{i} h_{i} \hat{\sigma}_{z}^{(i)}
+            +\sum_{i,j} J_{i, j} \hat{\sigma}_{z}^{(i)} \hat{\sigma}_{z}^{(j)}
+        \right)
+    }_{
+        \text{Final Hamiltonian}
+    },
 \end{split}
 \end{equation*}
 \sphinxAtStartPar
