@@ -84,7 +84,7 @@
         
 
 \title{QMLCourse}
-\date{Dec 17, 2021}
+\date{Dec 20, 2021}
 \release{}
 \author{ODS Quantum Community}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -183,7 +183,7 @@
 \end{DUlineblock}
 
 \sphinxAtStartPar
-Помочь можно словом и делом. Если знаете людей, интересующихся квантовыми вычислениями – замолвите словечко. Курс разрабатывается сообществом OpenDataScience, такими же «больными», как и организаторы (\sphinxhref{https://opendatascience.slack.com/team/U7SFPUVQF}{@sem} \sphinxhref{https://opendatascience.slack.com/team/U1UNFRQ1K}{@yorko} \sphinxhref{https://opendatascience.slack.com/team/U3KBYJQSF}{@vtrohimenko}). Если горите желанием в чем\sphinxhyphen{}то помочь, то создавайте Issue, а лучше сразу Pull Request в \sphinxhref{http://github.com/SemyonSinchenko/qmlcourse/}{репозитории курса} (\sphinxhref{https://github.com/SemyonSinchenko/qmlcourse/blob/master/CONTRIBUTING.md}{Contributing guide}).
+Помочь можно словом и делом. Если знаете людей, интересующихся квантовыми вычислениями – замолвите словечко. Курс разрабатывается сообществом OpenDataScience, такими же «больными», как и организаторы (\sphinxhref{https://opendatascience.slack.com/team/U7SFPUVQF}{@sem} \sphinxhref{https://opendatascience.slack.com/team/U1UNFRQ1K}{@yorko} \sphinxhref{https://opendatascience.slack.com/team/U3KBYJQSF}{@vtrohimenko}). Если горите желанием в чем\sphinxhyphen{}то помочь, то создавайте Issue, а лучше сразу Pull Request в \sphinxhref{http://github.com/quantum-ods/qmlcourse/}{репозитории курса} (\sphinxhref{https://github.com/quantum-ods/qmlcourse/blob/master/CONTRIBUTING.md}{Contributing guide}).
 
 \sphinxAtStartPar
 \sphinxstylestrong{Желаем успехов!}
@@ -948,12 +948,18 @@
 \sphinxhref{https://github.com/git-guides}{\sphinxcode{\sphinxupquote{Git}}} \sphinxhyphen{} это система контроля версий. Этот инструмент часто используется для совместной разработки программ (и не только!) группой людей, каждый из которых работает над своей отдельной проблемой. Так, например, этот курс был создан с помощью \sphinxcode{\sphinxupquote{Git}}, и каждый автор работал с отдельной копией, создавая набор лекций. А затем все копии собрались в одну книгу, которую вы и читаете. Для вашего удобства, а также возможности получить (“собрать” на сленге) свой экземпляр книги (если он вам зачем\sphinxhyphen{}то нужен – ведь все доступно онлайн в полном объеме). К сожалению, знакомство с этим инструментов не входит в программу настоящего курса, и единственное, что вам потребуется \sphinxhyphen{} это скачать файлы себе для дальнейшей работы. Хороший туториал на английском можно найти по \sphinxhref{https://git-scm.com/docs/gittutorial}{этой ссылке}.
 
 \sphinxAtStartPar
-Однако сейчас ограничимся лишь простой операцией: для этого надо зайти на страницу с репозиторием (папкой) \sphinxhref{https://github.com/SemyonSinchenko/qmlcourse}{по ссылке на github} (одну из разновидностей \sphinxcode{\sphinxupquote{Git}}). Затем найдите зеленую кнопку с текстом \sphinxcode{\sphinxupquote{<> Code}} и кликните по ней. В открывшемся окне убедитесь, что выбрана вкладка \sphinxcode{\sphinxupquote{HTTPS}}, а не \sphinxcode{\sphinxupquote{SSH}} или \sphinxcode{\sphinxupquote{GitHub CLI}}. В самом низу окошка будет кнопка \sphinxcode{\sphinxupquote{Download ZIP}} \sphinxhyphen{} она нам и нужна, жмите!
+Однако сейчас ограничимся лишь простой операцией: для этого надо зайти на страницу с репозиторием (папкой) \sphinxhref{https://github.com/quantum-ods/qmlcourse}{по ссылке на github} (одну из разновидностей \sphinxcode{\sphinxupquote{Git}}). Затем найдите зеленую кнопку с текстом \sphinxcode{\sphinxupquote{<> Code}} и кликните по ней. В открывшемся окне убедитесь, что выбрана вкладка \sphinxcode{\sphinxupquote{HTTPS}}, а не \sphinxcode{\sphinxupquote{SSH}} или \sphinxcode{\sphinxupquote{GitHub CLI}}. В самом низу окошка будет кнопка \sphinxcode{\sphinxupquote{Download ZIP}} \sphinxhyphen{} она нам и нужна, жмите!
 
 \begin{sphinxadmonition}{tip}{Tip:}
 \sphinxAtStartPar
 Если вы проследуете инструкциям из документации по установке \sphinxcode{\sphinxupquote{Git}}, то действия выше можно проделать одной командой из консоли:
-\sphinxcode{\sphinxupquote{git clone https://github.com/SemyonSinchenko/qmlcourse}}. Вообще \sphinxcode{\sphinxupquote{Git}} \sphinxhyphen{} очень полезный инструмент, и рекомендуется уделить время прочтению инструкций по его установке и настройке, это пригодится в будущем.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+git clone https://github.com/quantum\PYGZhy{}ods/qmlcoursesdfd
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+Вообще \sphinxcode{\sphinxupquote{Git}} \sphinxhyphen{} очень полезный инструмент, и рекомендуется уделить время прочтению инструкций по его установке и настройке, это пригодится в будущем.
 \end{sphinxadmonition}
 
 \begin{figure}[htbp]
@@ -964,7 +970,11 @@
 \caption{Не пугайтесь темного цвета \sphinxhyphen{} это просто цветовая схема в браузере. На светлой странице все, что написано выше, применимо в полном объеме.}\label{\detokenize{book/pythonblock/python_l2:git-download}}\end{figure}
 
 \sphinxAtStartPar
-Затем скачанный файл необходимо разархивировать любым удобным способом. В современных версиях Windows можно выбрать соответствующий пункт в выпадающем меню при клике на скачанный архив правой кнопкой мыши, на \sphinxcode{\sphinxupquote{MacOS}} достаточно просто кликнуть дважды, а на \sphinxcode{\sphinxupquote{Ubuntu}} … что вы делаете на этой странице? Нужно поставить программу, если ее еще нет, а затем разархивировать по любому удобному пути: \sphinxcode{\sphinxupquote{sudo apt install unzip \&\& unzip qmlcourse\sphinxhyphen{}master.zip \sphinxhyphen{}d <путь/к/вашей/папке/>}}.
+Затем скачанный файл необходимо разархивировать любым удобным способом. В современных версиях Windows можно выбрать соответствующий пункт в выпадающем меню при клике на скачанный архив правой кнопкой мыши, на \sphinxcode{\sphinxupquote{MacOS}} достаточно просто кликнуть дважды, а на \sphinxcode{\sphinxupquote{Ubuntu}} … что вы делаете на этой странице? Нужно поставить программу, если ее еще нет, а затем разархивировать по любому удобному пути:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{sudo} \PYG{n}{apt} \PYG{n}{install} \PYG{n}{unzip} \PYG{o}{\PYGZam{}}\PYG{o}{\PYGZam{}} \PYG{n}{unzip} \PYG{n}{qmlcourse}\PYG{o}{\PYGZhy{}}\PYG{n}{master}\PYG{o}{.}\PYG{n}{zip} \PYG{o}{\PYGZhy{}}\PYG{n}{d} \PYG{o}{\PYGZlt{}}\PYG{n}{путь}\PYG{o}{/}\PYG{n}{к}\PYG{o}{/}\PYG{n}{вашей}\PYG{o}{/}\PYG{n}{папке}\PYG{o}{/}\PYG{o}{\PYGZgt{}}
+\end{sphinxVerbatim}
 
 \sphinxAtStartPar
 Теперь в папке qmlcourse\sphinxhyphen{}master вы увидите содержимое курса, над которым трудилась наша команда: это и картинки, и текст, и задания.
@@ -1096,7 +1106,7 @@ make build\PYGZhy{}linux\PYGZhy{}macos
 
 \begin{sphinxadmonition}{hint}{Hint:}
 \sphinxAtStartPar
-Первая команда установит \sphinxcode{\sphinxupquote{Python}}, \sphinxhref{https://python-poetry.org}{\sphinxcode{\sphinxupquote{poetry}}} \sphinxhyphen{} это еще один менеджер, который отвечает за управление библиотеками \sphinxcode{\sphinxupquote{Python}} и их версиями, а также сами библиотеки, необходимые для прохождения курса; вторая – соберет \sphinxhref{https://jupyterbook.org/intro.html}{jupyter book}, то что по ссылке https://semyonsinchenko.github.io/qmlcourse/\_build/html/book/index.html (так что можете не выполнять если не хотите, трава и так будет расти)
+Первая команда установит \sphinxcode{\sphinxupquote{Python}}, \sphinxhref{https://python-poetry.org}{\sphinxcode{\sphinxupquote{poetry}}} \sphinxhyphen{} это еще один менеджер, который отвечает за управление библиотеками \sphinxcode{\sphinxupquote{Python}} и их версиями, а также сами библиотеки, необходимые для прохождения курса; вторая – соберет \sphinxhref{https://jupyterbook.org/intro.html}{jupyter book}, то что по ссылке \sphinxurl{https://quantum-ods.github.io/qmlcourse/book/index.html} (так что можете не выполнять если не хотите, трава и так будет расти)
 \end{sphinxadmonition}
 
 
@@ -20794,7 +20804,7 @@ WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF\PYGZus{}CPP\PYGZus{}
 \subsubsection{Neural Network Quantum States}
 \label{\detokenize{book/problems2qml/eigenvals:neural-network-quantum-states}}
 \sphinxAtStartPar
-Еще более интересный подход к выбору \sphinxstyleemphasis{trial wave function} – это использование в качестве \(\Psi(X)\) нейронной сети \sphinxcite{book/bibliography:id24}. Уже немного \sphinxhref{qmlkindsblock/qmlkinds.html\#nqs}{касались этой темы}, когда речь шла о видах квантового машинного обучения. Хороший вариант, это использовать, например, полносвязную сеть – ограниченную машину Больцмана:
+Еще более интересный подход к выбору \sphinxstyleemphasis{trial wave function} – это использование в качестве \(\Psi(X)\) нейронной сети \sphinxcite{book/bibliography:id24}. Уже немного \sphinxhref{../qmlkindsblock/qmlkinds.html\#nqs}{касались этой темы}, когда речь шла о видах квантового машинного обучения. Хороший вариант, это использовать, например, полносвязную сеть – ограниченную машину Больцмана:
 
 \begin{figure}[htbp]
 \centering
@@ -20965,7 +20975,7 @@ e = \bra{\Psi}\hat{A}\ket{\Psi}
 \section{Пример}
 \label{\detokenize{book/vqeblock/vqe:id4}}
 \sphinxAtStartPar
-Решим простую задачку с тривиальной моделью Изинга, который \sphinxhref{problemsblock/ising.html\#numpy}{рассматривали} в посвященной этому лекции. Будем использовать тот же код:
+Решим простую задачку с тривиальной моделью Изинга, который \sphinxhref{../problemsblock/ising.html\#numpy}{рассматривали} в посвященной этому лекции. Будем использовать тот же код:
 \begin{sphinxVerbatimInput}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
