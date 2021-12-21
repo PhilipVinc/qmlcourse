@@ -84,7 +84,7 @@
         
 
 \title{QMLCourse}
-\date{Dec 20, 2021}
+\date{Dec 21, 2021}
 \release{}
 \author{ODS Quantum Community}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -11600,9 +11600,9 @@ f1
 \sphinxAtStartPar
 Алиса применяет CNOT между первым и вторым кубитами. Вспоминая, что \( |\psi\rangle = \alpha|0\rangle + \beta|1\rangle \):
 \begin{equation*}
-\begin{split}|\psi_{3}\rangle = (I \otimes CNOT(1, 2))|\psi_{2}\rangle =\end{split}
+\begin{split}|\psi_{3}\rangle = (CNOT(1, 2) \otimes I)|\psi_{2}\rangle =\end{split}
 \end{equation*}\begin{equation*}
-\begin{split}(I \otimes CNOT(1, 2))\frac{1}{\sqrt{2}}(\alpha|0\rangle + \beta|1\rangle)(|00\rangle + |11\rangle) =\end{split}
+\begin{split}(CNOT(1, 2) \otimes I)\frac{1}{\sqrt{2}}(\alpha|0\rangle + \beta|1\rangle)(|00\rangle + |11\rangle) =\end{split}
 \end{equation*}\begin{equation*}
 \begin{split} = \frac{1}{\sqrt{2}}[\alpha(|000\rangle + |011\rangle) + \beta(|110\rangle + |101\rangle)] \end{split}
 \end{equation*}
@@ -22315,6 +22315,345 @@ Yukon
 \caption{Результаты алгоритма на примере молекулы \(H_3^{+}\).}\label{\detokenize{book/dwaveblock/dwave:fig-5}}\end{figure}
 
 
+\chapter{Сравнение квантовой и классической имитации отжига}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:annealing-paper-1998}}\label{\detokenize{book/dwaveblock/annealing_paper_1998:id1}}\label{\detokenize{book/dwaveblock/annealing_paper_1998::doc}}
+\sphinxAtStartPar
+Автор(ы):
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxhref{https://github.com/dmburd}{Бурдейный Дмитрий}
+
+\end{itemize}
+
+
+\section{Описание лекции}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id2}}
+\sphinxAtStartPar
+В этой лекции рассмотрим каноническую работу \sphinxstylestrong{Quantum annealing in the transverse Ising model}, опубликованную в 1998 году \sphinxcite{book/bibliography:id73}. В ней двумя способами численно решается задача о нахождении основного состояния системы взаимодействующих спинов. Первый способ – обычная классическая имитация отжига, второй – имитация квантового отжига. Результаты применения этих подходов анализируются и сравниваются между собой.
+
+
+\section{Постановка задачи}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id4}}
+\sphinxAtStartPar
+Итак, рассматривается одномерная система взаимодействующих спинов, которая описывается гамильтонианом Изинга (полностью аналогичным тому, который был представлен в {\hyperref[\detokenize{book/problemsblock/ising:ising}]{\sphinxcrossref{\DUrole{std,std-ref}{базовой лекции}}}} о модели Изинга):
+\begin{equation*}
+\begin{split}
+\hat{H}_{0} =
+    -\sum_{i,j} J_{ij} \hat{\sigma}^{z}_i \hat{\sigma}^{z}_{j}
+    - h \sum_{i} \hat{\sigma}^{z}_i,
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+где \(J_{ij}\) – величины обменного взаимодействия для пар спинов, \(h\) – внешнее поле (оно направлено вдоль оси \(z\) и потому называется продольным – \sphinxstyleemphasis{longitudinal}). Требуется найти основное состояние гамильтониана \(\hat{H}_{0}\), т.е. его собственное состояние, соответствующее его минимальному собственному значению.
+
+\sphinxAtStartPar
+Далее разберем численное решение этой задачи с помощью обычной классической имитации отжига (\sphinxstyleemphasis{simulated annealing}, SA для краткости) и с помощью квантовой имитации отжига (\sphinxstyleemphasis{quantum annealing} – QA).
+
+
+\section{Имитация квантового отжига (QA)}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa}}
+\sphinxAtStartPar
+Как в {\hyperref[\detokenize{book/dwaveblock/dwave:dwave}]{\sphinxcrossref{\DUrole{std,std-ref}{предыдущей лекции}}}} об аннилере D\sphinxhyphen{}Wave, добавляем к “целевому”  гамильтониану \(\hat{H}_{0}\) (\sphinxstyleemphasis{problem Hamiltonian}) слагаемое, которое называется \sphinxstyleemphasis{tunneling Hamiltonian}:
+\begin{equation}\label{equation:book/dwaveblock/annealing_paper_1998:eqn:QA_Hamilt}
+\begin{split}
+\hat{H}(t) =
+    \hat{H}_{0} - \Gamma(t) \sum_{i} \hat{\sigma}^{x}_i
+    = \hat{H}_{0} + \hat{H}_{tun}(t),
+\end{split}
+\end{equation}
+\sphinxAtStartPar
+где \(\hat{H}_{tun}(t)\) зависит от времени и отвечает за квантовомеханическое туннелирование между различными собственными состояниями гамильтониана \(\hat{H}_{0}\). Оператор \(\hat{H}_{tun}(t)\) соответствует приложенному внешнему магнитному полю вдоль оси \(x\) (т.е. поперечному, \sphinxstyleemphasis{transverse}). Когда величина \(\Gamma(t)\) очень велика по сравнению с \(J_{i j}\) и \(h\), собственное состояние гамильтониана \(\hat{H}(t)\), соответствующее его минимальному собственному значению, представляет собой линейную комбинацию всевозможных состояний системы с приблизительно равными амплитудами вероятностей ориентации каждого спина вверх и вниз. Если достаточно медленно уменьшать \(\Gamma(t)\) с очень большой величины до нуля, можно надеяться (в соответствии с адиабатической теоремой), что приведем систему в основное состояние гамильтониана \(\hat{H}_{0}\).
+
+\sphinxAtStartPar
+В обсуждаемой статье в качестве примеров рассматриваются три различных закона изменения \(\Gamma(t)\):
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\(\Gamma(t) = \frac{c}{\ln(t+1)},\)
+
+\item {} 
+\sphinxAtStartPar
+\(\Gamma(t) = \frac{c}{\sqrt{t}},\)
+
+\item {} 
+\sphinxAtStartPar
+\(\Gamma(t) = \frac{c}{t},\)
+
+\end{itemize}
+
+\sphinxAtStartPar
+везде \(t \in (0, +\infty)\) и \(c = \textrm{const}\).
+
+\sphinxAtStartPar
+Квантовая динамика системы описывается нестационарным уравнением Шредингера
+\begin{equation}\label{equation:book/dwaveblock/annealing_paper_1998:eqn:Schrodinger_timedep}
+\begin{split}
+i \frac{\partial}{\partial t} \ket{\psi(t)} =
+    \hat{H}(t) \ket{\psi(t)}
+\end{split}
+\end{equation}
+\sphinxAtStartPar
+Это уравнение решается численно (с помощью дискретизации по времени и применения конечно\sphinxhyphen{}разностной схемы) для небольшой системы (число спинов \(N=8\)). Измерить близость состояния \(\ket{\psi(t)}\) к основному состоянию \(\ket{g}\) гамильтониана \(\hat{H}_{0}\) можно путем вычисления вероятности
+\begin{equation*}
+\begin{split}
+P_{QA}(t) = {\left| \braket{g | \psi(t)} \right|}^2
+\end{split}
+\end{equation*}
+\begin{sphinxadmonition}{note}{Note}
+
+\sphinxAtStartPar
+Основное состояние \(\ket{g}\) для небольшого числа спинов можно найти точно, например, путем полного перебора.
+\end{sphinxadmonition}
+
+\sphinxAtStartPar
+Кроме того, можно рассмотреть так называемое \sphinxhref{https://en.wikipedia.org/wiki/Quasistatic\_approximation}{\sphinxstyleemphasis{квазистатическое приближение}}. Выберем какое\sphinxhyphen{}нибудь значение \(\Gamma = \textrm{const}\) и решим задачу об основном состоянии \(\ket{\psi_{\Gamma}}\) независящего от времени гамильтониана
+\begin{equation*}
+\begin{split}
+\hat{H}_{0} - \Gamma \sum_{i} \hat{\sigma}^{x}_i
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Следует ожидать, что при очень медленном изменении \(\Gamma(t)\) вероятность
+\begin{equation*}
+\begin{split}
+P_{QA}^{st}(\Gamma) = {\left| \braket{g | \psi_{\Gamma}} \right|}^2
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+будет близка к \(P_{QA}(t)\) (имеется в виду, что значение \(\Gamma\) соответствует значению \(\Gamma(t)\)). Отличие \(P_{QA}(t)\) от \(P_{QA}^{st}(\Gamma)\) говорит о том, насколько близко состояния системы при динамическом процессе отжига следуют за соответствующими “квазистатическими” состояниями.
+
+
+\section{Классическая имитация отжига (SA)}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:sa}}
+\sphinxAtStartPar
+В {\hyperref[\detokenize{book/problemsblock/copt:copt}]{\sphinxcrossref{\DUrole{std,std-ref}{лекции}}}}, посвященной комбинаторной оптимизации, процесс имитации отжига описывался таким образом: выбиралось случайное начальное состояние, затем оно в цикле подвергалось случайной модификации, и новое состояние принималось или отклонялось в соответствии с некоторым критерием. В статье \sphinxcite{book/bibliography:id73} принят другой подход к SA. Рассматривается так называемое \sphinxhref{https://ru.wikipedia.org/wiki/\%D0\%9E\%D1\%81\%D0\%BD\%D0\%BE\%D0\%B2\%D0\%BD\%D0\%BE\%D0\%B5\_\%D0\%BA\%D0\%B8\%D0\%BD\%D0\%B5\%D1\%82\%D0\%B8\%D1\%87\%D0\%B5\%D1\%81\%D0\%BA\%D0\%BE\%D0\%B5\_\%D1\%83\%D1\%80\%D0\%B0\%D0\%B2\%D0\%BD\%D0\%B5\%D0\%BD\%D0\%B8\%D0\%B5}{\sphinxstyleemphasis{основное кинетическое уравнение}} (англ. \sphinxstyleemphasis{master equation}). Оно описывает классический SA процесс, соответствующий нестационарному уравнению Шредингера \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:Schrodinger_timedep}. В нашем случае это система обыкновенных дифференциальных уравнений для вероятностей нахождения системы в различных состояниях \(i\) в момент времени \(t\):
+\begin{equation}\label{equation:book/dwaveblock/annealing_paper_1998:eqn:SA_master_eqn}
+\begin{split}
+\frac{d P_i(t)}{d t} =
+    \sum_j \mathcal{L}_{i j} P_j(t),
+\end{split}
+\end{equation}
+\sphinxAtStartPar
+где \(\mathcal{L}_{i j}\) – вероятность перехода системы из состояния \(j\) в состояние \(i\) (при \(j \neq i\)) в единицу времени. Рассматриваются только элементарные переходы, сопровождающиеся изменением ориентации какого\sphinxhyphen{}либо одного спина (остальные спины при данном переходе не меняют ориентацию). Элементы матрицы переходов записываются следующим образом:
+\begin{equation}\label{equation:book/dwaveblock/annealing_paper_1998:eqn:L_trans_matr_elem}
+\begin{split}
+\mathcal{L}_{i j} =
+\begin{cases}
+    \frac{1}{1 + \exp \left( \frac{E_i - E_j}{T(t)} \right) } & \quad (\text{single-spin transition}, j \neq i) \\
+    -\sum_{k \neq i} \mathcal{L}_{k i} & \quad (j = i) \\
+    0 & \quad \text{(otherwise)}
+\end{cases}
+\end{split}
+\end{equation}
+\sphinxAtStartPar
+Для первого условия правая часть в формуле \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:L_trans_matr_elem} соответствует \sphinxhref{https://ru.wikipedia.org/wiki/\%D0\%A0\%D0\%B0\%D1\%81\%D0\%BF\%D1\%80\%D0\%B5\%D0\%B4\%D0\%B5\%D0\%BB\%D0\%B5\%D0\%BD\%D0\%B8\%D0\%B5\_\%D0\%91\%D0\%BE\%D0\%BB\%D1\%8C\%D1\%86\%D0\%BC\%D0\%B0\%D0\%BD\%D0\%B0}{распределению Больцмана}. Для понимания полезно проанализировать несколько предельных случаев:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+если \(E_i < E_j\) и \(\left| E_i - E_j \right| \gg T(t)\), то вероятность перехода \(j \to i\) близка к 1;
+
+\item {} 
+\sphinxAtStartPar
+если \(E_i > E_j\) и \(E_i - E_j \gg T(t)\), то вероятность перехода \(j \to i\) близка к 0;
+
+\item {} 
+\sphinxAtStartPar
+если \(\left| E_i - E_j \right| \ll T(t)\), то вероятность перехода \(j \to i\) близка к \(1/2\).
+
+\end{itemize}
+
+\sphinxAtStartPar
+Все случаи соответствуют интуитивным ожиданиям.
+
+\sphinxAtStartPar
+Во втором условии в \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:L_trans_matr_elem} сама сумма (без знака “минус”) равна суммарной вероятности перехода из состояния \(i\) во все остальные состояния. Так что эта сумма должна входить со знаком “минус” в выражение \(\frac{d P_i(t)}{d t}\) для темпа изменения вероятности \(P_i\) нахождения в состоянии \(i\).
+
+\sphinxAtStartPar
+Третье условие в \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:L_trans_matr_elem} означает, что рассматриваем только перевороты одиночных спинов (\sphinxstyleemphasis{single\sphinxhyphen{}spin flip}) в качестве допустимых переходов между состояниями системы.
+
+\sphinxAtStartPar
+Зависимость температуры от времени выбирается равной \(\Gamma(t)\):
+\begin{equation*}
+\begin{split}
+T(t) = \Gamma(t)
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Близость решения задачи SA к основному состоянию \(\ket{g}\) гамильтониана \(\hat{H}_{0}\) выражается величиной вероятности \(P_g(t)\) найти систему в основном состоянии в момент времени \(t\):
+\begin{equation*}
+\begin{split}
+P_{SA}(t) = P_g(t)
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Аналогично квантовому случаю, введем величину \(P_{SA}^{st}(T)\), которая в квазистатическом приближении близка к \(P_{SA}(t)\) (если величина температуры \(T = T(t)\)).
+
+
+\section{Анализ и сравнение результатов}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id6}}
+\sphinxAtStartPar
+В статье обсуждаются численные результаты для \(P_{SA}\) и \(P_{QA}\) для различных конфигураций обменного взаимодействия и различных вариантов зависимости поперечного поля от времени. В всех случаях продольное внешнее поле выбрано постоянным: \(h = 0.1\).
+
+
+\subsection{Ферромагнитная модель}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id7}}
+\sphinxAtStartPar
+Здесь проводится численный эксперимент для ферромагнитной модели Изинга с \(J_{i j} = \textrm{const}\) для всех пар спинов. Зависимости \(T\) и \(\Gamma\) от времени выбираются такими:
+\begin{equation*}
+\begin{split}
+\Gamma(t) = T(t) = \frac{3}{\ln(t + 1)}
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Результаты представлены на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-1}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-1}}}.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_11}.png}
+\caption{Зависимости \(P_{SA}(t)\), \(P_{QA}(t)\), \(P_{SA}^{st}(T(t))\) и \(P_{QA}^{st}(\Gamma(t))\) для ферромагнитной модели при \(\Gamma(t) = T(t) = 3 / \ln(t+1)\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-1}}\end{figure}
+
+\sphinxAtStartPar
+Видно, что квазистатическое приближение работает очень хорошо, интересующие нас величины в динамическом процессе очень близки к вычисленным в равновесных условиях. Когда расписание отжига имеет вид \(T(t) = c / \ln(t+1)\), гарантируется сходимость \(P_{SA} \to 1\) при подходящем выборе константы \(c\) (в статье \sphinxcite{book/bibliography:id73} есть ссылка на соответствующую теорему). Выбор константы \(c = 3\) достаточно произволен, но высокая точность приближенного равенства \(P_{SA}(t) \approx P_{SA}^{st}(T(t))\) свидетельствует о том, что в рассматриваемом случае действительно \(P_{SA} \to 1\) при \(t \to +\infty\).
+
+\sphinxAtStartPar
+Для QA нет аналогичного точного утверждения о сходимости \(P_{QA} \to 1\), но численные результаты для данного ферромагнитного случая при \(\Gamma(t) = 3 / \ln(t+1)\) позволяют предположить такую сходимость.
+
+\sphinxAtStartPar
+Тот факт, что QA\sphinxhyphen{}кривая на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-1}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-1}}} всегда ниже SA\sphinxhyphen{}кривой, никакого значения не имеет, потому что в обеих задачах у нас все величины обезразмерены (\(\hbar = 1\) в \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:Schrodinger_timedep} и единица времени \(\tau = 1\) в \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:SA_master_eqn}) и никакого согласования при обезразмеривании в двух задачах нет.
+
+\sphinxAtStartPar
+Если уменьшать поперечное поле и температуру быстрее,
+\begin{equation*}
+\begin{split}
+\Gamma(t) = T(t) = \frac{3}{\sqrt{t}},
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+то возникает качественное отличие QA и SA решений, см. \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-2}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-2}}}.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_21}.png}
+\caption{Вид коэффициентов перекрытия для ферромагнитной модели при \(\Gamma(t) = T(t) = 3 / \sqrt{t}\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-2}}\end{figure}
+
+\sphinxAtStartPar
+Видно, что решение квантовомеханической задачи лучше сходится к основному состоянию, чем решение классической задачи. Более того, SA\sphinxhyphen{}решение “застревает” в каком\sphinxhyphen{}то локальном минимуме с не очень малой вероятностью. На \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-3}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-3}}} виден темп приближения \(P_{QA}\) к 1 (на графике двойная логарифмическая шкала). Можно сделать вывод, что \((1 - P_{QA}) \propto 1/t\) в широком диапазоне \(t\).
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_31}.png}
+\caption{\((1 - P_{QA}(t))\) для ферромагнитной модели при \(\Gamma(t) = 3 / \sqrt{t}\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-3}}\end{figure}
+
+\sphinxAtStartPar
+Если еще быстрее уменьшать поперечное поле и температуру,
+\begin{equation*}
+\begin{split}
+\Gamma(t) = T(t) = \frac{3}{t},
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+то оба решения “застревают” в неосновных состояниях, как видно из \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-4}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-4}}}.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_41}.png}
+\caption{Вид коэффициентов перекрытия для ферромагнитной модели при \(\Gamma(t) = T(t) = 3 / t\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-4}}\end{figure}
+
+
+\subsection{Фрустрированная модель}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id9}}
+\sphinxAtStartPar
+Здесь анализируется так называемая фрустрированная (\sphinxstyleemphasis{frustrated}) система, она изображена на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-5}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-5}}}.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=300\sphinxpxdimen]{{fig_51}.png}
+\caption{Фрустрированная система спинов.}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-5}}\end{figure}
+
+\sphinxAtStartPar
+Сплошные линии обозначают ферромагнитное взаимодействие между спинами, пунктирная линия – антиферромагнитное взаимодействие (сила которого по абсолютной величине равна силе ферромагнитного взаимодействия). Если в SA\sphinxhyphen{}задаче температура очень велика, то спины 4 и 5 меняют свою ориентацию с очень высокой частотой, так что взаимодействие спинов 3 и 6 посредством спинов 4 и 5 пренебрежимо мало. В этом случае прямое антиферромагнитное взаимодействие между спинами 3 и 6 оказывается доминирующим, поэтому наблюдается отрицательная корреляция между ориентациями спинов 3 и 6 (см. \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}}}).
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_6}.png}
+\caption{Величина корреляции спинов 3 и 6. Индекс \sphinxcode{\sphinxupquote{c}} означает классическое решение (SA), индекс \sphinxcode{\sphinxupquote{q}} означает квантовомеханическое решение (QA).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}}\end{figure}
+
+\sphinxAtStartPar
+С другой стороны, при низкой температуре спины 4 и 5 стремятся принять определенную устойчивую ориентацию. В этом случае эффективное (непрямое) ферромагнитное взаимодействие между спинами 3 и 6 посредством спинов 4 и 5 примерно вдвое сильнее, чем прямое антиферромагнитное взаимодействие. Эти рассуждения подтверждаются положительной величиной корреляции \(\braket{\sigma_3^z \sigma_6^z}_c\) при низких температурах (\hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}}}). Значит, спины 3 и 6 должны поменять взаимную ориентацию при некоторой промежуточной температуре.
+
+\sphinxAtStartPar
+Если поперечное поле в QA\sphinxhyphen{}задаче играет роль, аналогичную роли температуры в SA\sphinxhyphen{}задаче, то следует ожидать схожего поведения величины корреляции \(\braket{\sigma_3^z \sigma_6^z}_q\) при изменении \(\Gamma\). Здесь наблюдаемая \(\braket{\sigma_3^z \sigma_6^z}_q\) вычисляется с использованием основного состояния гамильтониана \eqref{equation:book/dwaveblock/annealing_paper_1998:eqn:QA_Hamilt} при заданной \(\Gamma\). Так и есть (см. пунктирную кривую на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}}}).
+
+\sphinxAtStartPar
+Если использовать расписание отжига
+\begin{equation*}
+\begin{split}
+\Gamma(t) = T(t) = \frac{3}{\sqrt{t}},
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+то получаются результаты, изображенные на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-7}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-7}}}.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_7}.png}
+\caption{Вид коэффициентов перекрытия для фрустрированной модели при \(\Gamma(t) = T(t) = 3 / \sqrt{t}\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-7}}\end{figure}
+
+\sphinxAtStartPar
+Обезразмеренное время \(\tau = t T_c^2\) для SA\sphinxhyphen{}задачи и \(\tau = t \Gamma_c^2\) для QA\sphinxhyphen{}задачи. Здесь \(T_c\) и \(\Gamma_c\) – критические величины, при которых \(\braket{\sigma_3^z \sigma_6^z}_c\) и \(\braket{\sigma_3^z \sigma_6^z}_q\) переходят через ноль на графике \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-6}}}. Видно, что квантовый отжиг лучше подходит для поиска основного состояния в такой системе.
+
+
+\subsection{Модель со случайными взаимодействиями}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id10}}
+\sphinxAtStartPar
+Последний рассмотренный пример – это модель спинового стекла, предложенная Шеррингтоном и Киркпатриком \sphinxcite{book/bibliography:id74}. Для всех пар спинов есть взаимодействие, сила которого является случайной величиной и семплируется из гауссова распределения с нулевым средним и с дисперсией \(1/N\) (в нашем случае \(N=8\)). На \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-8}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-8}}} показан типичный результат для эволюции коэффициентов перекрытия во времени при расписании отжига \(\Gamma(t) = T(t) = 3 / \sqrt{t}\).
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=500\sphinxpxdimen]{{fig_8}.png}
+\caption{Вид коэффициентов перекрытия для модели Шеррингтона\sphinxhyphen{}Киркпатрика при \(\Gamma(t) = T(t) = 3 / \sqrt{t}\).}\label{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-8}}\end{figure}
+
+\sphinxAtStartPar
+Было проверено несколько реализаций для коэффициентов обменного взаимодействия (семплирование выполнялось из одной и той же функции распределения), результаты оказались качественно близкими. Графики на \hyperref[\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-8}]{Fig.\@ \ref{\detokenize{book/dwaveblock/annealing_paper_1998:qa-sa-fig-8}}} подтверждают, что для данной оптимизационной задачи квантовый отжиг подходит лучше, чем классический.
+
+
+\section{Заключение}
+\label{\detokenize{book/dwaveblock/annealing_paper_1998:id12}}
+\sphinxAtStartPar
+В этой лекции рассказали о канонической работе, в которой для модели Изинга рассмотрены классическая имитация отжига и квантовая имитация отжига, выполнен анализ и сравнение свойств решений в рамках этих двух подходов на нескольких примерах. Выяснилось, что:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+при одном и том же расписании отжига квантовый отжиг дает сходимость к основному состоянию с большей вероятностью, чем классический отжиг;
+
+\item {} 
+\sphinxAtStartPar
+для квантового случая система сходится к основному состоянию при расписании отжига \(\Gamma = c / \sqrt{t}\), но не при более быстром уменьшении поперечного поля;
+
+\item {} 
+\sphinxAtStartPar
+для ферромагнитной модели при квантовом отжиге вероятность получения основного состояния ведет себя приближенно как \((1 - \frac{\text{const}}{t})\) на больших временах \(t\).
+
+\end{itemize}
+
+
 \chapter{О блоке “Quantum Approximate Optimization Algorithm”}
 \label{\detokenize{book/qaoablock/intro:quantum-approximate-optimization-algorithm}}\label{\detokenize{book/qaoablock/intro:intro}}\label{\detokenize{book/qaoablock/intro::doc}}
 \sphinxAtStartPar
@@ -23747,6 +24086,9 @@ Ernst Ising. Beitrag zur theorie des ferromagnetismus. \sphinxstyleemphasis{Zeit
 \bibitem[Jas55]{book/bibliography:id44}
 \sphinxAtStartPar
 Robert Jastrow. Many\sphinxhyphen{}body problem with strong forces. \sphinxstyleemphasis{Physical Review}, 98(5):1479, 1955.
+\bibitem[KN98]{book/bibliography:id73}
+\sphinxAtStartPar
+Tadashi Kadowaki and Hidetoshi Nishimori. Quantum annealing in the transverse ising model. \sphinxstyleemphasis{Phys. Rev. E}, 58:5355–5363, Nov 1998. URL: \sphinxurl{https://link.aps.org/doi/10.1103/PhysRevE.58.5355}, \sphinxhref{https://doi.org/10.1103/PhysRevE.58.5355}{doi:10.1103/PhysRevE.58.5355}.
 \bibitem[KMT+17]{book/bibliography:id33}
 \sphinxAtStartPar
 Abhinav Kandala, Antonio Mezzacapo, Kristan Temme, Maika Takita, Markus Brink, Jerry M Chow, and Jay M Gambetta. Hardware\sphinxhyphen{}efficient variational quantum eigensolver for small molecules and quantum magnets. \sphinxstyleemphasis{Nature}, 549(7671):242–246, 2017. URL: \sphinxurl{https://www.nature.com/articles/nature23879}, \sphinxhref{https://doi.org/10.1038/nature23879}{doi:10.1038/nature23879}.
@@ -23804,6 +24146,9 @@ N. Samkharadze, G. Zheng, N. Kalhor, D. Brousse, A. Sammak, U. C. Mendes, 
 \bibitem[SRL12]{book/bibliography:id59}
 \sphinxAtStartPar
 Jacob T. Seeley, Martin J. Richard, and Peter J. Love. The bravyi\sphinxhyphen{}kitaev transformation for quantum computation of electronic structure. \sphinxstyleemphasis{The Journal of chemical physics}, 137(22):224109, 2012. URL: \sphinxurl{https://arxiv.org/abs/1208.5986}.
+\bibitem[SK75]{book/bibliography:id74}
+\sphinxAtStartPar
+David Sherrington and Scott Kirkpatrick. Solvable model of a spin\sphinxhyphen{}glass. \sphinxstyleemphasis{Phys. Rev. Lett.}, 35:1792–1796, Dec 1975. URL: \sphinxurl{https://link.aps.org/doi/10.1103/PhysRevLett.35.1792}, \sphinxhref{https://doi.org/10.1103/PhysRevLett.35.1792}{doi:10.1103/PhysRevLett.35.1792}.
 \bibitem[SB19]{book/bibliography:id60}
 \sphinxAtStartPar
 Semyon Sinchenko and Dmitry Bazhanov. The deep learning and statistical physics applications to the problems of combinatorial optimization. \sphinxstyleemphasis{arXiv preprint arXiv:1911.10680}, 2019. URL: \sphinxurl{https://arxiv.org/abs/1911.10680}.
